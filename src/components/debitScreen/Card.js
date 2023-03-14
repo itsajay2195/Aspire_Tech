@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, ActivityIndicator, Alert } from 'react-native'
 import React, { useEffect } from 'react'
-import { COLORS, SIZES } from '../../constants'
+import { COLORS, SIZES } from '../../styles/index'
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, setLoading, selectWeeklyLimitToggled, selectUserInfo, selectLoading, setSpendingLimit, setAmountSpent, setWeeklyLimitToggled } from '../../redux/userSlice'
-import { SvgVisaLogo, SvgAspireLogo } from '../../assets/svgs'
+import { setUserInfo, setLoading, setAmountSpent, setSpendingLimit, setWeeklyLimitToggled } from '../../redux/actions/UserActions'
+import {selectWeeklyLimitToggled, selectUserInfo, selectLoading} from '../../redux/selectors/userSelectors'
+import { SvgVisaLogo, SvgAspireLogo } from '../../assets/svg/svg'
 
 
 const STATIC_CARD_INFO = {
@@ -27,8 +28,6 @@ const Card = ({ showCard }) => {
 
 
     useEffect(() => {
-
-
         dispatch(setLoading(true))
         const getUserInfo = async () => {
             const url = 'api/user/1'

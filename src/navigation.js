@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import WeeklyLimitSceen from "./screens/WeeklyLimitSceen";
 import DebitScreen from "./screens/DebitScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import theme from "./styles/theme";
+import { COLORS, PLATFORM, SIZES } from "./styles/index";
 import {SvgLogo} from "./assets/svg/svg";
 import { Provider } from 'react-redux'
 import { store } from "./redux/store";
@@ -16,9 +16,9 @@ export default function RootNavigation() {
     headerShown: false,
     headerTransparent: true,
     headerBackTitleVisible: false,
-    tabBarActiveTintColor: theme.colors.primaryGreen,
-    tabBarInactiveTintColor: theme.colors.lightGray,
-  };
+    tabBarActiveTintColor: COLORS.primaryGreen,
+    tabBarInactiveTintColor: COLORS.lightGray,
+}
 
   return (
     <Provider store={store}>
@@ -46,9 +46,9 @@ const DebitScreenNavigator = () => {
     headerShown: false,
     headerTransparent: true,
     headerBackTitleVisible: false,
-    tabBarActiveTintColor: theme.colors.primaryGreen,
-    tabBarInactiveTintColor: theme.colors.lightGray,
-  };
+    tabBarActiveTintColor: COLORS.primaryGreen,
+    tabBarInactiveTintColor: COLORS.lightGray,
+} 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="Debit Card" component={DebitScreen} />

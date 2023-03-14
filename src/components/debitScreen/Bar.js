@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { COLORS } from '../../constants'
+import { COLORS } from '../../styles/index'
 import { useSelector } from 'react-redux';
-import { selectAmountSpent,selectSpendingLimit } from '../../redux/userSlice'
+import { selectAmountSpent,selectSpendingLimit } from '../../redux/selectors/userSelectors'
 
 const Bar = () => {
   

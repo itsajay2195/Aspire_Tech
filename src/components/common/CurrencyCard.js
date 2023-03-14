@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import theme from '../../styles/theme'
+import { COLORS, PLATFORM, SIZES } from "../../styles/index";
 
 const CurrencyCard = () => {
     return (
@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
     currencySymbol: {
         paddingHorizontal: 8,
         borderRadius: 5,
-        backgroundColor: theme.colors.primaryGreen,
+        backgroundColor: "#01D167",
         justifyContent: 'center'
     },
     currencySymbolText: {
-        color: theme.colors.white,
-        fontSize: theme.fontSizes.font,
+        color: COLORS.white,
+        fontSize: SIZES.font,
         fontWeight: 'bold'
     }
 })

@@ -6,7 +6,7 @@ import {
   SET_EXPENSE_INFO,
   SET_AMOUNT_SPENT,
   SET_WEEKLY_LIMIT_TOGGLED,
-} from "./ActionConstants";
+} from "../actions/ActionConstants";
 
 const initialState = {
   loading: false,

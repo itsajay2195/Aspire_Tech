@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, Switch, Alert } from 'react-native'
 import React from 'react'
-import { icons, COLORS, SIZES } from '../../constants'
+import { COLORS, SIZES } from '../../styles/index'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux';
-import { setAmountSpent, setSpendingLimit, selectWeeklyLimitToggled, setWeeklyLimitToggled } from '../../redux/userSlice'
+import { setAmountSpent, setSpendingLimit, setWeeklyLimitToggled } from '../../redux/actions/UserActions'
+import {selectWeeklyLimitToggled} from '../../redux/selectors/userSelectors'
 
 
 const SlidingPaneList = ({ spendingLimit }) => {

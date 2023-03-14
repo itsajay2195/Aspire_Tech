@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import { COLORS, PLATFORM, icons, SIZES } from "../constants";
+import { COLORS, PLATFORM, SIZES } from "../styles/index";
 import React, { useState } from "react";
-import SlidingUpPanel from "rn-sliding-up-panel";
+// import SlidingUpPanel from "rn-sliding-up-panel";
 import Header from "../components/common/Header";
 import Card from "../components/debitScreen/Card";
 import SlidingPaneListItem from "../components/debitScreen/SlidingPaneList";
@@ -20,9 +20,9 @@ import {
   selectSpendingLimit,
   selectUserInfo,
   selectAmountSpent,
-} from "../redux/userSlice";
+} from "../redux/selectors/userSelectors";
 import Bar from "../components/debitScreen/Bar";
-import { SvgShow, SvgRemove } from "../assets/svgs";
+
 
 const DebitScreen = () => {
   const [showCard, setShowCard] = useState(true);
