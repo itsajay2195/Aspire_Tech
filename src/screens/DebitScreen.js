@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Animated,
   TouchableOpacity,
+  Button,
   StatusBar,
 } from "react-native";
 import { COLORS, PLATFORM, SIZES } from "../styles/index";
@@ -22,6 +23,7 @@ import {
   selectAmountSpent,
 } from "../redux/selectors/userSelectors";
 import Bar from "../components/debitScreen/Bar";
+import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
 
 
 const DebitScreen = () => {
@@ -30,6 +32,16 @@ const DebitScreen = () => {
   const spendingLimit = useSelector(selectSpendingLimit);
   const userInfo = useSelector(selectUserInfo);
   const amountSpent = useSelector(selectAmountSpent);
+  const [panelVisible, setPanelVisible] = useState(true);
+
+  const handleOpenPanel = () => {
+    setPanelVisible(true);
+  };
+
+  const handleClosePanel = () => {
+    setPanelVisible(false);
+  };
+
 
   const draggableRange = React.useMemo(
     () => ({
@@ -99,14 +111,14 @@ const DebitScreen = () => {
           </View>
         </View>
       </View>
-      {/* <SlidingUpPanel
-        showBackdrop={false}
-        height={SIZES.height}
-        animatedValue={new Animated.Value(SIZES.height / 1.5)}
-        backdropOpacity={0}
-        draggableRange={draggableRange}
-        friction={0.9}
-      ></SlidingUpPanel> */}
+
+      
+      <SlidingUpPanel visible={panelVisible} onClose={handleClosePanel} >
+      
+      </SlidingUpPanel>
+
+   
+    
     </View>
   );
 };
