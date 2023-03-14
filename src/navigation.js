@@ -1,27 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import WeeklyLimitSceen from './screens/WeeklyLimitSceen'
 import DebitScreen from './screens/DebitScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import theme from './styles/theme'
 
 export default function RootNavigation() {
     
     const Tab = createBottomTabNavigator();
 
-    // const screenOptions = {
-    //     headerShown: false,
-    //     headerTransparent: true,
-    //     headerBackTitleVisible: false,
-    //     tabBarActiveTintColor: COLORS.primaryGreen,
-    //     tabBarInactiveTintColor: COLORS.lightGray,
-    // }
+    const screenOptions = {
+        headerShown: false,
+        headerTransparent: true,
+        headerBackTitleVisible: false,
+        tabBarActiveTintColor: theme.colors.primaryGreen,
+        tabBarInactiveTintColor: theme.colors.lightGray,
+    }
 
     return (
         // <Provider store={store}>
             <NavigationContainer tabBar={(props) => <MyTabBar {...props} />}>
-                <Tab.Navigator initialRouteName="Debit Card"   >
+                <Tab.Navigator initialRouteName="Debit Card"  screenOptions={screenOptions}  >
                     <Tab.Screen name='Debit Card' component={DebitScreenNavigator}  />  
                 </Tab.Navigator>
             </NavigationContainer>
@@ -34,15 +34,15 @@ export default function RootNavigation() {
 
 const DebitScreenNavigator = () => {
     const Stack = createNativeStackNavigator();
-    // const screenOptions = {
-    //     headerShown: false,
-    //     headerTransparent: true,
-    //     headerBackTitleVisible: false,
-    //     tabBarActiveTintColor: COLORS.primaryGreen,
-    //     tabBarInactiveTintColor: COLORS.lightGray,
-    // } 
+    const screenOptions = {
+        headerShown: false,
+        headerTransparent: true,
+        headerBackTitleVisible: false,
+        tabBarActiveTintColor: theme.colors.primaryGreen,
+        tabBarInactiveTintColor: theme.colors.lightGray,
+    } 
     return (
-      <Stack.Navigator  >   
+      <Stack.Navigator  screenOptions={screenOptions}  >   
          <Stack.Screen
           name="Debit Card"
           component={DebitScreen}
