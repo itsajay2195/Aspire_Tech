@@ -5,7 +5,7 @@ import WeeklyLimitSceen from "./screens/WeeklyLimitSceen";
 import DebitScreen from "./screens/DebitScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import theme from "./styles/theme";
-import svg from "./assets/svg/svg";
+import {SvgLogo} from "./assets/svg/svg";
 import { Provider } from 'react-redux'
 import { store } from "./redux/store";
 
@@ -31,7 +31,7 @@ export default function RootNavigation() {
             name="Debit Card"
             component={DebitScreenNavigator}
             options={{
-              tabBarIcon: ({ color }) => <svg.SvgLogo color={color} />,
+              tabBarIcon: ({ color }) => <SvgLogo color={color} />,
             }}
           />
         </Tab.Navigator>

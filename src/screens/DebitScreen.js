@@ -74,18 +74,9 @@ const DebitScreen = () => {
     [amountSpent, spendingLimit]
   );
 
-  const renderHeader = React.useCallback(
-    () => (
-      <>
-        <Header showBack={false} />
-      </>
-    ),
-    []
-  );
-
   return (
     <View style={styles.container}>
-      <SafeAreaView>{renderHeader()}</SafeAreaView>
+      <SafeAreaView><Header showBack={false}/></SafeAreaView>
       <View style={styles.debitCardTextWrapper}>
         <Text style={styles.debitCardText}>Debit Card</Text>
       </View>
@@ -121,3 +112,97 @@ const DebitScreen = () => {
 };
 
 export default DebitScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.primaryBlue,
+    paddingTop: PLATFORM === "android" ? StatusBar.currentHeight : 0
+  },
+  debitCardTextWrapper: {
+    padding: SIZES.padding,
+  },
+  debitCardText: {
+    fontWeight: '700',
+    color: COLORS.white,
+    fontSize: SIZES.h2
+
+  },
+  debitSectionStyle: {
+    flex: 1,
+    padding: SIZES.padding,
+    backgroundColor: COLORS.primaryBlue
+  },
+  currenyInfoWrapper: {
+    flexDirection: 'row',
+    paddingTop: 10
+  },
+  currencySymbol: {
+    paddingHorizontal: 8,
+    borderRadius: 5,
+    backgroundColor: "#01D167",
+    justifyContent: 'center'
+  },
+  currencySymbolText: {
+    color: COLORS.white,
+    fontSize: SIZES.font,
+    fontWeight: 'bold'
+  },
+  currencyTotalText: {
+    color: COLORS.white,
+    fontSize: SIZES.h2,
+    fontWeight: '700'
+  },
+  debitCardComponent: {
+    marginHorizontal: '5%',
+    position: 'absolute',
+    borderRadius: 5,
+    width: '90%',
+    height: 200,
+    zIndex: 1
+
+  },
+  showCardButtonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+
+  },
+  showCardButton: {
+    height: 30,
+    paddingHorizontal: 5,
+    backgroundColor: COLORS.white,
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  showCardNumberText: {
+    paddingHorizontal: 5,
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: COLORS.primaryGreen
+  },
+  slidingUpPanelStyle: {
+    flex: 1,
+    padding: SIZES.padding,
+    marginTop: 50,
+    backgroundColor: COLORS.white,
+    borderTopLeftRadius: SIZES.radius,
+    borderTopRightRadius: SIZES.radius,
+
+  },
+  slideupContent: {
+    marginTop: 150
+  },
+  spendingLimitWrapper: {
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  bottomTabSectionStyle: {
+    justifyContent: 'flex-end',
+
+
+  }
+
+})

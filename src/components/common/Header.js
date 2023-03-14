@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet,  View } from "react-native";
 import theme from "../../styles/theme";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { SvgLogo } from "../../assets/svgs";
+import {SvgLogo} from "../../assets/svg/svg";
+
 
 const Header = ({ showBack }) => {
   const navigation = useNavigation();
