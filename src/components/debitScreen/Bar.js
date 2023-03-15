@@ -1,53 +1,25 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { COLORS } from '../../styles/index'
-import { useSelector } from 'react-redux';
-import { selectAmountSpent,selectSpendingLimit } from '../../redux/selectors/userSelectors'
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { COLORS } from '../../styles/index';
 
-const Bar = () => {
-  
-  const amountSpent = useSelector(selectAmountSpent)
-  const weeklyLimit = useSelector(selectSpendingLimit)
-  const percentage = Math.floor(amountSpent * 100 / weeklyLimit)
-
+const Bar = ({ progress }) => {
+  // const amountSpent = useSelector(selectAmountSpent) ||100
+  // const weeklyLimit = useSelector(selectSpendingLimit) || 200
+  // const percentage = Math.floor(amountSpent * 100 / weeklyLimit)
 
   return (
-    <View >
-      <View style={styles.triangleCornerLayer}></View>
-      <View style={[styles.triangleCorner1,{width: `${percentage}%`,}]}></View>
-
+    <View>
+          <View style={styles.topBar}>
     </View>
+       <View style={[styles.innerBar,{width: `${80}%`,}]}></View>
+    </View>
+
   );
-
-}
-
-export default Bar
+};
 
 const styles = StyleSheet.create({
-  triangleCorner1: {
-
-
-    left: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 10,
-    borderTopWidth: 20,
-    borderRightColor: 'transparent',
-    borderTopColor: COLORS.lightGreen,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10
-  }, triangleCornerLayer: {
-    position: 'absolute',
-    left: 0,
-    width: '100%',
-    borderStyle: 'solid',
-    borderRightWidth: 0,
-    borderTopWidth: 20,
-    borderRightColor: 'transparent',
-    borderTopColor: COLORS.secondaryGreen,
-    borderBottomRightRadius: 10,
-    borderTopRightRadius: 10
-
-
-  }
+  topBar:{width:"100%", borderWidth:10,borderRadius:10,borderColor:COLORS.secondaryGreen},
+  innerBar:{position:'absolute', borderWidth:10, borderBottomRightRadius:19, borderTopRightRadius:0,borderBottomLeftRadius:10,borderTopLeftRadius:10,borderColor:COLORS.lightGreen}
 });
+
+export default Bar;

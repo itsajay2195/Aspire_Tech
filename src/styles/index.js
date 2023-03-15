@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import theme, { COLORS, SIZES, FONTS } from "./theme";
-
+import icons from "../assets/icons";
 
 const PLATFORM = Platform.OS
 export {
@@ -9,5 +9,5 @@ export {
     SIZES,
     FONTS,
     PLATFORM,
-
+    icons
 };

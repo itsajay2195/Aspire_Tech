@@ -1,31 +1,42 @@
 import React, { useRef } from 'react';
 import { StyleSheet, View, Text, PanResponder, Animated } from 'react-native';
 
-const Panel = () => {
-  const height = useRef(new Animated.Value(200)).current;
+const SlidingUpPanel = ({ viewHeight, children }) => {
+  const height = useRef(new Animated.Value(viewHeight)).current;
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      // onPanResponderMove: (evt, gestureState) => {
+      //   const { dy } = gestureState;
+      //   if (dy < 0) {
+      //     height.setValue(viewHeight - dy);
+      //   } else if (dy > 0 && height._value > viewHeight && height._value < viewHeight + 200) {
+      //     height.setValue(viewHeight - dy);
+      //   }
+      // },
       onPanResponderMove: (evt, gestureState) => {
         const { dy } = gestureState;
-        if (dy < 0) {
-          height.setValue(200 - dy);
-        } else if (dy > 0 && height._value > 200 && height._value < 400) {
-          height.setValue(200 - dy);
+        const newHeight = height._value - dy;
+        if (newHeight >= viewHeight && newHeight <= viewHeight + 300) {
+          height.setValue(newHeight);
+        } else if (newHeight < viewHeight) {
+          height.setValue(viewHeight);
+        } else {
+          height.setValue(viewHeight + 300);
         }
       },
       onPanResponderRelease: (evt, gestureState) => {
         const { dy } = gestureState;
-        if (dy < -100 && height._value !== 400) {
+        if (dy < -100 && height._value !== viewHeight + 100) {
           Animated.timing(height, {
-            toValue: 400,
-            duration: 300,
+            toValue: viewHeight + 200,
+            duration: 100,
             useNativeDriver: false,
           }).start();
         } else {
           Animated.timing(height, {
-            toValue: 200,
-            duration: 300,
+            toValue: viewHeight,
+            duration: 50,
             useNativeDriver: false,
           }).start();
         }
@@ -35,29 +46,14 @@ const Panel = () => {
 
   return (
     <Animated.View style={[styles.panel, { height }]} {...panResponder.panHandlers}>
-      {/* <View style={styles.panelHeader} >
-        <Text>Slide up to increase height</Text>
-      </View> */}
-      <View style={styles.panelContent}>
-        <Text>Panel Content</Text>
-      </View>
+      {children}
     </Animated.View>
   );
 };
 
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <Panel />
-    </View>
-  );
-};
+export default SlidingUpPanel;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   panel: {
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
@@ -71,14 +67,4 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  panelHeader: {
-    padding: 20,
-    alignItems: 'center',
-  },
-  panelContent: {
-    padding: 20,
-    backgroundColor: '#f4f4f4',
-  },
 });
-
-export default App;

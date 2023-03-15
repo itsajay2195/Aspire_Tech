@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from "react-native";
 import { COLORS, PLATFORM, SIZES } from "../styles/index";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // import SlidingUpPanel from "rn-sliding-up-panel";
 import Header from "../components/common/Header";
 import Card from "../components/debitScreen/Card";
@@ -24,7 +24,44 @@ import {
 } from "../redux/selectors/userSelectors";
 import Bar from "../components/debitScreen/Bar";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
+import { SvgShow, SvgRemove } from "../assets/svg/svg";
 
+const RenderSlidingPanelContent = ({amountSpent, showCard, spendingLimit}) => (
+  <>
+    <View style={styles.debitCardComponent}>
+      <Card showCard={showCard} />
+    </View>
+    <View style={styles.slidingUpPanelStyle}>
+      <View style={styles.slideupContent}>
+        {spendingLimit && (
+          <>
+            <View style={styles.spendingLimitWrapper}>
+              <Text style={styles.debitCardSpendingLimitText}>
+                Debit card spending limit
+              </Text>
+              <Text style={styles.debitCardSpendingLimitValue}>
+                <Text style={styles.debitCardSpendingLimitCurrentValue}>
+                  $
+                  {amountSpent
+                    ?.toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                </Text>
+                | $
+                {spendingLimit
+                  ?.toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Text>
+            </View>
+            <View style={{ padding: 5 }}>
+              <Bar/>
+            </View>
+          </>
+        )}
+        <SlidingPaneListItem spendingLimit={spendingLimit} />
+      </View>
+    </View>
+  </>
+);
 
 const DebitScreen = () => {
   const [showCard, setShowCard] = useState(true);
@@ -32,16 +69,6 @@ const DebitScreen = () => {
   const spendingLimit = useSelector(selectSpendingLimit);
   const userInfo = useSelector(selectUserInfo);
   const amountSpent = useSelector(selectAmountSpent);
-  const [panelVisible, setPanelVisible] = useState(true);
-
-  const handleOpenPanel = () => {
-    setPanelVisible(true);
-  };
-
-  const handleClosePanel = () => {
-    setPanelVisible(false);
-  };
-
 
   const draggableRange = React.useMemo(
     () => ({
@@ -51,44 +78,16 @@ const DebitScreen = () => {
     []
   );
 
-  const renderSlidingPanelContent = React.useCallback(
-    () => (
-      <View style={styles.slidingUpPanelStyle}>
-        <View style={styles.slideupContent}>
-          {spendingLimit && (
-            <>
-              <View style={styles.spendingLimitWrapper}>
-                <Text style={{ fontSize: 12 }}>Debit card spending limit</Text>
-                <Text style={{ color: COLORS.gray, fontSize: 12 }}>
-                  <Text
-                    style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}
-                  >
-                    $
-                    {amountSpent
-                      ?.toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                  </Text>
-                  | $
-                  {spendingLimit
-                    ?.toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </Text>
-              </View>
-              <View style={{ padding: 5 }}>
-                <Bar amountSpent={amountSpent} weeklyLimit={spendingLimit} />
-              </View>
-            </>
-          )}
-          <SlidingPaneListItem spendingLimit={spendingLimit} />
-        </View>
-      </View>
-    ),
-    [amountSpent, spendingLimit]
-  );
-
+  const [viewHeight, setViewHeight] = useState(0);
+  const handleLayout = (event) => {
+    const { height } = event.nativeEvent.layout;
+    setViewHeight(height);
+  };
   return (
     <View style={styles.container}>
-      <SafeAreaView><Header showBack={false}/></SafeAreaView>
+      <SafeAreaView>
+        <Header showBack={false} />
+      </SafeAreaView>
       <View style={styles.debitCardTextWrapper}>
         <Text style={styles.debitCardText}>Debit Card</Text>
       </View>
@@ -112,13 +111,16 @@ const DebitScreen = () => {
         </View>
       </View>
 
-      
-      <SlidingUpPanel visible={panelVisible} onClose={handleClosePanel} >
-      
-      </SlidingUpPanel>
-
-   
-    
+      <View
+        style={{ flex: 1, justifyContent: "flex-end" }}
+        onLayout={handleLayout}
+      >
+        {viewHeight > 0 && (
+          <SlidingUpPanel viewHeight={viewHeight}>
+            <RenderSlidingPanelContent showCard={showCard} amountSpent={100} spendingLimit={200}/>
+          </SlidingUpPanel>
+        )}
+      </View>
     </View>
   );
 };
@@ -129,70 +131,67 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.primaryBlue,
-    paddingTop: PLATFORM === "android" ? StatusBar.currentHeight : 0
+    paddingTop: PLATFORM === "android" ? StatusBar.currentHeight : 0,
   },
   debitCardTextWrapper: {
     padding: SIZES.padding,
   },
   debitCardText: {
-    fontWeight: '700',
+    fontWeight: "700",
     color: COLORS.white,
-    fontSize: SIZES.h2
-
+    fontSize: SIZES.h2,
   },
   debitSectionStyle: {
-    flex: 1,
+    flex: 0.2,
     padding: SIZES.padding,
-    backgroundColor: COLORS.primaryBlue
+    backgroundColor: COLORS.primaryBlue,
   },
   currenyInfoWrapper: {
-    flexDirection: 'row',
-    paddingTop: 10
+    flexDirection: "row",
+    paddingTop: 10,
   },
   currencySymbol: {
     paddingHorizontal: 8,
     borderRadius: 5,
     backgroundColor: "#01D167",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   currencySymbolText: {
     color: COLORS.white,
     fontSize: SIZES.font,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   currencyTotalText: {
     color: COLORS.white,
     fontSize: SIZES.h2,
-    fontWeight: '700'
+    fontWeight: "700",
   },
   debitCardComponent: {
-    marginHorizontal: '5%',
-    position: 'absolute',
+    marginHorizontal: "5%",
+    position: "absolute",
     borderRadius: 5,
-    width: '90%',
+    width: "90%",
     height: 200,
-    zIndex: 1
-
+    zIndex: 1,
   },
   showCardButtonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   showCardButton: {
     height: 30,
     paddingHorizontal: 5,
     backgroundColor: COLORS.white,
     borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   showCardNumberText: {
     paddingHorizontal: 5,
     fontSize: 12,
-    fontWeight: 'bold',
-    color: COLORS.primaryGreen
+    fontWeight: "bold",
+    color: COLORS.primaryGreen,
   },
   slidingUpPanelStyle: {
     flex: 1,
@@ -201,20 +200,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderTopLeftRadius: SIZES.radius,
     borderTopRightRadius: SIZES.radius,
-
   },
   slideupContent: {
-    marginTop: 150
+    marginTop: 150,
   },
   spendingLimitWrapper: {
     paddingHorizontal: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   bottomTabSectionStyle: {
-    justifyContent: 'flex-end',
-
-
-  }
-
-})
+    justifyContent: "flex-end",
+  },
+});
