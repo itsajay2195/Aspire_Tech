@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native'
 import { selectUserInfo } from '../redux/selectors/userSelectors'
 import { COLORS, PLATFORM, SIZES, icons} from '../styles'
+import PrimaryButton from '../components/common/PrimaryButton'
 
 
 const WeeklyLimit = (props) => {
