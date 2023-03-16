@@ -11,17 +11,10 @@ import PrimaryButton from '../components/common/PrimaryButton'
 import { setWeeklySpendingLimitAction } from '../redux/actions/UserActions'
 
 
-const WeeklyLimit = (props) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const WeeklyLimit = ({navigation}) => {
   const [limitFieldValue, onLimitFieldValueChange] = useState("")//selectSpendingLimit)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
-  const navigation = useNavigation()
-  const id = 1;
-
-
-
-
   const saveSpendingLimit = () => {
 
     let num = parseFloat(limitFieldValue.replace(',', ''))//  this is basically done to check if the user inputted number is less than 0 or not
@@ -48,9 +41,6 @@ const WeeklyLimit = (props) => {
     // navigation.navigate('Debit Card')
   }
 
-  const onSaveClick = () => {
-    setModalVisible(!modalVisible)
-  }
   return (
     <View style={styles.container}>
 

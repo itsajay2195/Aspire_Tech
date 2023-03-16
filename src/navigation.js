@@ -8,6 +8,7 @@ import { COLORS, PLATFORM, SIZES } from "./styles/index";
 import {SvgLogo} from "./assets/svg/svg";
 import { Provider } from 'react-redux'
 import { store } from "./redux/store";
+import { navigationRef } from "./utils/NavigationService";
 
 export default function RootNavigation() {
   const Tab = createBottomTabNavigator();
@@ -22,7 +23,7 @@ export default function RootNavigation() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer tabBar={(props) => <MyTabBar {...props} />}>
+      <NavigationContainer ref={navigationRef}  tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Navigator
           initialRouteName="Debit Card"
           screenOptions={screenOptions}

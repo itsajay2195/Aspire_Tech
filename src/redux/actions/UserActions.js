@@ -31,10 +31,11 @@ export const setUserInfoFailure = () => ({
   type: SET_USER_INFO_FAILURE,
 });
 
-export const setWeeklySpendingLimitAction = (payload) => ({
+export const setWeeklySpendingLimitAction = (payload) => {
+  return{
   type: SET_WEEKLY_SPENDING_LIMIT,
   payload,
-});
+}};
 
 export const setMenuInfo = (index, value) => ({
   type: SET_MENU_INFO,

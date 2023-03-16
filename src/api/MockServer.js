@@ -30,6 +30,7 @@ window.server = createServer({
 
     this.post("/api/user/1/weeklylimit", (schema, request) => {
       const data = JSON.parse(request.requestBody);
+      console.warn("reqqq",data)
       const{limitValue,weeklyLimitEnabled} = data.payload
       if (typeof weeklyLimitEnabled === "boolean" && typeof limitValue === "number") {
         constData['weekly_limit'] =  limitValue;
