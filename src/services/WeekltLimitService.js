@@ -8,6 +8,9 @@ export async function setWeeklyLimitService(postData) {
   };
   try {
     const response = await axios.post(url, postData, { headers });
+    if (response.status>=400) {
+      throw new Error("Error setting weekly limit");
+    }
     return response.data;
   } catch (error) {
     // The request was made and the server responded with a status code
@@ -24,6 +27,9 @@ export async function resetWeeklyLimitService() {
   };
   try {
     const response = await axios.post(url, {}, { headers });
+    if (response.status>=400) {
+      throw new Error("Error setting weekly limit");
+    }
     return response.data;
   } catch (error) {
     // The request was made and the server responded with a status code

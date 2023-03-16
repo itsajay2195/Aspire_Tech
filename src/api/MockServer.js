@@ -22,13 +22,13 @@ if (window.server) {
 
 window.server = createServer({
   routes() {
-    // this.get("/api/user/1", () => {
-    //   return new Response(200, {},{data: constData});
-    // });
-
     this.get("/api/user/1", () => {
-      return new Response(404, {}, { error: "User not found" });
+      return new Response(200, {},{data: constData});
     });
+
+    // this.get("/api/user/1", () => {
+    //   return new Response(404, {}, { error: "User not found" });
+    // });
 
     this.post("/api/user/1/weeklylimit", (schema, request) => {
       const data = JSON.parse(request.requestBody);

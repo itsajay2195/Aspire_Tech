@@ -4,17 +4,17 @@ import Header from '../components/common/Header'
 import CurrencyCard from '../components/common/CurrencyCard'
 import Tags from '../components/weeklyLimitScreen/Tags'
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native'
-import { selectUserInfo } from '../redux/selectors/userSelectors'
+import { selectUserInfo, selectError } from '../redux/selectors/userSelectors'
 import { COLORS, PLATFORM, SIZES, icons} from '../styles'
 import PrimaryButton from '../components/common/PrimaryButton'
 import { setWeeklySpendingLimitAction } from '../redux/actions/UserActions'
 
 
-const WeeklyLimit = ({navigation}) => {
+const WeeklyLimit = () => {
   const [limitFieldValue, onLimitFieldValueChange] = useState("")//selectSpendingLimit)?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
   const saveSpendingLimit = () => {
 
     let num = parseFloat(limitFieldValue.replace(',', ''))//  this is basically done to check if the user inputted number is less than 0 or not
@@ -39,6 +39,12 @@ const WeeklyLimit = ({navigation}) => {
     dispatch(setWeeklySpendingLimitAction(postRequestData))
    
     // navigation.navigate('Debit Card')
+  }
+
+  if (error) {
+    return <View style={{flex:1, backgroundColor:COLORS.primaryBlue,justifyContent:'center',alignItems:'center'}}>
+      {Alert.alert("Something went wrong")}
+    </View>;
   }
 
   return (
