@@ -25,6 +25,7 @@ import {
 import Bar from "../components/debitScreen/Bar";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
 import { SvgShow, SvgRemove } from "../assets/svg/svg";
+import PopUpCard from "../components/debitScreen/PopupCard";
 
 const RenderSlidingPanelContent = ({amountSpent, showCard, spendingLimit}) => (
   <>
@@ -57,7 +58,6 @@ const RenderSlidingPanelContent = ({amountSpent, showCard, spendingLimit}) => (
             </View>
           </>
         )}
-        <SlidingPaneListItem spendingLimit={spendingLimit} />
       </View>
     </View>
   </>
@@ -110,17 +110,7 @@ const DebitScreen = () => {
           </View>
         </View>
       </View>
-
-      <View
-        style={{ flex: 1, justifyContent: "flex-end" }}
-        onLayout={handleLayout}
-      >
-        {viewHeight > 0 && (
-          <SlidingUpPanel viewHeight={viewHeight}>
-            <RenderSlidingPanelContent showCard={showCard} amountSpent={100} spendingLimit={200}/>
-          </SlidingUpPanel>
-        )}
-      </View>
+      <PopUpCard/>
     </View>
   );
 };

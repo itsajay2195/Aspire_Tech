@@ -63,7 +63,7 @@ const Card = React.memo(({showCard })  => {
   // }, [])
 
   return (
-    <View style={{ top: -50 }}>
+    <View >
       <View style={styles.showCardButtonWrapper}>
         <TouchableOpacity
           style={styles.showCardButton}
