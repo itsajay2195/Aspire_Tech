@@ -10,6 +10,7 @@ import {
 import { selectWeeklyLimitToggled } from "../../redux/selectors/userSelectors";
 
 
+
 const ListItem = ({ item }) => {
   const { image, title, meta, toggle, isToggleMenu } = item;
   const [toggleEnabled, setToggleEnabled] = useState(false);
@@ -77,7 +78,7 @@ const ListItem = ({ item }) => {
   //     }
   //   }
   // }, [item, navigation, toggleEnabled, updateToggleInfo]);
-  console.warn(item.type, isweeklyLimitEnabled,item.type === "WEEK" && isweeklyLimitEnabled)
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
@@ -100,7 +101,7 @@ const ListItem = ({ item }) => {
           }}
           thumbColor={toggle ? COLORS.white : COLORS.white}
           ios_backgroundColor={COLORS.toggleFalseTrackColor}
-          onValueChange={() => console.log("ok")}
+          onValueChange={()=> navigation.navigate("Limit")}
           value={toggleValueSelector}
         />
       )}

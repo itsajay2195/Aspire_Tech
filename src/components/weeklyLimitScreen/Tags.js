@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../constants'
+import { SIZES, COLORS } from '../../styles'
+
 
 const tagsList = [
     { id: 1, value: '5,000' },
