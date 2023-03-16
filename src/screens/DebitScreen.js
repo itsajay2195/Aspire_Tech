@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, StatusBar } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, StatusBar, Alert } from "react-native";
 import { COLORS, PLATFORM, SIZES } from "../styles/index";
 import React, { useState, useEffect } from "react";
 // import SlidingUpPanel from "rn-sliding-up-panel";
@@ -7,6 +7,7 @@ import CurrencyCard from "../components/common/CurrencyCard";
 import {
   selectLoading,
   selectUserInfo,
+  selectError,
 } from "../redux/selectors/userSelectors";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,10 +17,17 @@ const DebitScreen = () => {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const userInfo = useSelector(selectUserInfo);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(setUserInfoRequest());
-  },[dispatch]);
+  }, [dispatch]);
+
+  if (error) {
+    return <View style={{flex:1, backgroundColor:COLORS.primaryBlue,justifyContent:'center',alignItems:'center'}}>
+      {Alert.alert("Something went wrong")}
+    </View>;
+  }
 
   return (
     <View style={styles.container}>

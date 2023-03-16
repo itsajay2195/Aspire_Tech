@@ -22,10 +22,12 @@ if (window.server) {
 
 window.server = createServer({
   routes() {
+    // this.get("/api/user/1", () => {
+    //   return new Response(200, {},{data: constData});
+    // });
+
     this.get("/api/user/1", () => {
-      return {
-        data: constData
-      };
+      return new Response(404, {}, { error: "User not found" });
     });
 
     this.post("/api/user/1/weeklylimit", (schema, request) => {
@@ -35,8 +37,8 @@ window.server = createServer({
         constData['weekly_limit'] =  limitValue;
         constData['weeklyLimitEnabled'] =  weeklyLimitEnabled;
         constData['amount_spent'] = 0;
-
         return new Response(200, {},{data: constData});
+
       } else {
         return new Response(
           400,
