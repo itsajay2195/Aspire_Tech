@@ -54,7 +54,7 @@ const WeeklyLimit = ({navigation}) => {
       <View style={styles.panel}>
 
         <View style={styles.panelHeader}>
-          <Image source={icons.limit} style={{ height: 15, width: 15 }} />
+          <Image source={icons.limit} style={styles.panelHeaderImageStyle} />
           <Text style={{ left: 10 }}>Set a weekly debit card spending limit</Text>
         </View>
 
@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     paddingBottom: PLATFORM === "android" ? StatusBar.currentHeight : 0
   },
 
-  saveText: { color: COLORS.white, fontSize: SIZES.h3, fontWeight: 'bold' }
+  saveText: { color: COLORS.white, fontSize: SIZES.h3, fontWeight: 'bold' },
+  panelHeaderImageStyle:{ height: 15, width: 15 }
 
 })
