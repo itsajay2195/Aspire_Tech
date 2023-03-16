@@ -11,7 +11,7 @@ window.server = createServer({
                     user_id: 1,
                     card_info: {
                         card_holder: "Ajaykumar Rajasekaran",
-                        card_number: "5647 3411 2413 2020",
+                        card_number: "5647341124132020",
                         thru: "12/20",
                         cvv: "456",
                         pin: "4453",

@@ -12,68 +12,60 @@ import {
 import { COLORS, icons, SIZES } from "../../styles";
 // import { LinearProgress } from 'react-native-elements';
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { useDispatch, useSelector, useStore } from 'react-redux';
-// import MenuItems from './MenuItems';
 import Card from "./Card";
 import ListItem from "./SlidingPaneList";
 import Bar from "./Bar";
-
-// import { selectCardNumber, selectCurrencyUnits, selectWeeklySpendingLimit, selectWeeklySpendingLimitExhausted, setWeeklySpendingLimit, setWeeklySpendingLimitExhausted } from '../store/slices/debitCardSlice';
-// import { selectAppColorSolid, setAppColorSolid, setIsLoadingIndicatorDisplayed, setLoadingIndicatorText} from '../store/slices/appVariablesSlice';
-// import { selectUserId } from '../store/slices/userSlice';
-// import debitCardDetailsAPI from '../api/debitCardDetailsAPI';
 
 const { width, height } = Dimensions.get("screen");
 
 const CARD_WIDTH = width - 48; //Ensures that the currency notation and the card's left end align just like the mock up
 const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 
-const POP_UP_HEIGHT = height >= 844 ? 0.73 * height : 0.66 * height;
 const panelMenu = [
-    {
-      id: 1,
-      image: icons.insight,
-      title: "Top-up-account",
-      meta: "Deposit money to your account to use with card",
-      isToggleMenu:false,
-      toggle: false,
-    },
-    {
-      id: 2,
-      image: icons.transfer,
-      title: "Weekly spending limit",
-      meta: "you haven't set any spending limit on card",
-      isToggleMenu:true,
-      toggle: true,
-    },
-    {
-      id: 3,
-      image: icons.freeze,
-      title: "Freeze card",
-      meta: "Your Debit card is currently active",
-      isToggleMenu:true,
-      toggle: null,
-    },
-    {
-      id: 4,
-      image: icons.newCard,
-      title: "Get a new card ",
-      meta: "This activates your current debit card",
-      isToggleMenu:false,
-      toggle: false,
-    },
-    {
-      id: 5,
-      image: icons.deactivate,
-      title: "Deactivated cards",
-      meta: "This deactivates your current debit card",
-      isToggleMenu:false,
-      toggle: false,
-    },
-  ];
+  {
+    id: 1,
+    image: icons.insight,
+    title: "Top-up-account",
+    meta: "Deposit money to your account to use with card",
+    isToggleMenu: false,
+    toggle: false,
+  },
+  {
+    id: 2,
+    image: icons.transfer,
+    title: "Weekly spending limit",
+    meta: "you haven't set any spending limit on card",
+    isToggleMenu: true,
+    toggle: true,
+  },
+  {
+    id: 3,
+    image: icons.freeze,
+    title: "Freeze card",
+    meta: "Your Debit card is currently active",
+    isToggleMenu: true,
+    toggle: null,
+  },
+  {
+    id: 4,
+    image: icons.newCard,
+    title: "Get a new card ",
+    meta: "This activates your current debit card",
+    isToggleMenu: false,
+    toggle: false,
+  },
+  {
+    id: 5,
+    image: icons.deactivate,
+    title: "Deactivated cards",
+    meta: "This deactivates your current debit card",
+    isToggleMenu: false,
+    toggle: false,
+  },
+];
 
-const flatListHeaderComponent = ()=>(
-    <>
+const flatListHeaderComponent = () => (
+  <>
     <View style={{ alignItems: "center" }}>
       <View
         style={{
@@ -86,15 +78,11 @@ const flatListHeaderComponent = ()=>(
       </View>
       <Card />
     </View>
-    <View
-      style={{ padding: SIZES.padding, backgroundColor: COLORS.white }}
-    >
+    <View style={{ padding: SIZES.padding, backgroundColor: COLORS.white }}>
       <View style={styles.spendingLimitWrapper}>
         <Text style={{ fontSize: 14 }}>Debit card spending limit</Text>
         <Text style={{ color: COLORS.gray, fontSize: 14 }}>
-          <Text
-            style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}
-          >
+          <Text style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}>
             $500
             {/* {amountSpent
               ?.toString()
@@ -109,7 +97,7 @@ const flatListHeaderComponent = ()=>(
       <Bar />
     </View>
   </>
-)
+);
 
 const createOneButtonAlert = (title, message) =>
   Alert.alert(title, message, [
@@ -120,10 +108,6 @@ const createOneButtonAlert = (title, message) =>
   ]);
 
 const SlidingUpPanel = (props) => {
-  // const store = useStore();
-  // const dispatchEvent = useDispatch();
-
-  // let state = store.getState()
 
   let spendingLimit = 5000;
   let spendingLimitExhausted = 300;
@@ -133,8 +117,6 @@ const SlidingUpPanel = (props) => {
   let isSpendingLimitSet = true;
   let appColorSolid = true;
   let scrollheight = isSpendingLimitSet ? 580 : 540;
-
-  
 
   const manageLoadingIndicator = (displayFlag, message) => {
     dispatchEvent(
@@ -212,7 +194,6 @@ const SlidingUpPanel = (props) => {
       });
   };
 
-
   const totalMenuItemHeight = isSpendingLimitSet
     ? CARD_HEIGHT + 32 - 90 + 65 + 63 * panelMenu.length + 243
     : CARD_HEIGHT + 63 * menuArr.length + 243;
@@ -235,7 +216,7 @@ const SlidingUpPanel = (props) => {
         ListHeaderComponent={flatListHeaderComponent}
         ListFooterComponent={
           <View
-            style={[styles.flatListFooterStyle,{height: extraPaddingNeeded,}]}
+            style={[styles.flatListFooterStyle, { height: extraPaddingNeeded }]}
           />
           //Padding at bottom
         }
@@ -300,8 +281,8 @@ const styles = StyleSheet.create({
     height: height - 40, //-40 for tab bar
     flex: 1,
   },
-  flatListFooterStyle:{
+  flatListFooterStyle: {
     backgroundColor: "white",
     marginTop: -1,
-  }
+  },
 });

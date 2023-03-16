@@ -14,10 +14,11 @@ import {
   SvgShow,
   SvgRemove,
 } from "../../assets/svg/svg";
-// import { Button } from 'react-native-elements';
-// import { useDispatch, useSelector, useStore } from 'react-redux';
-// import { selectAppColorSolid } from '../store/slices/appVariablesSlice';
-// import { selectCardCVV, selectCardNumber, selectCardNumberVisible, selectCardValidThru, selectNameOnCard, setCardNumberVisible } from '../store/slices/debitCardSlice';
+import { useSelector } from "react-redux";
+import {
+  selectUserInfo,
+  selectLoading,
+} from "../../redux/selectors/userSelectors";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,23 +26,20 @@ const CARD_WIDTH = width - 48; //Ensures that the currency notation and the card
 const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 
 const CardNumberDisplay = ({ cardDisplayFlag, cardNumber }) => {
-     // Split the card number into groups of 4 digits
-     const groups = cardNumber.match(/.{1,4}/g) || [];
+  // Split the card number into groups of 4 digits
+  const groups = cardNumber.match(/.{1,4}/g) || [];
 
-     // Mask all but the last group if show is false
-     const maskedGroups = cardDisplayFlag
-       ? groups
-       : groups.map((group, index) => (index === groups.length - 1 ? group : '****'));
- 
-     // Concatenate the groups with spaces in between
-     const displayString = maskedGroups.join(' ');
- 
-     return <Text style={styles.cardNumberText}>{displayString}</Text>;
- 
+  // Mask all but the last group if show is false
+  const maskedGroups = cardDisplayFlag
+    ? groups
+    : groups.map((group, index) =>
+        index === groups.length - 1 ? group : "****"
+      );
 
+  // Concatenate the groups with spaces in between
+  const displayString = maskedGroups.join(" ");
 
-
-
+  return <Text style={styles.cardNumberText}>{displayString}</Text>;
 };
 
 const Card = React.memo(
@@ -53,22 +51,29 @@ const Card = React.memo(
     cardDetailsDisplayed,
     setCardNumberVisible,
   }) => {
+    const userInfo = useSelector(selectUserInfo);
+    const loading = useSelector(selectLoading);
+    const card_number = userInfo?.card_info?.card_number;
+    const thru = userInfo?.card_info?.thru;
+    const cvv = userInfo?.card_info?.cvv;
+    const weekly_limit = userInfo?.card_info?.weekly_limit;
+    const amount_spent = userInfo?.card_info?.amount_spent;
 
-    const [showCard,setShowCard] = useState(false)
+    const [showCard, setShowCard] = useState(false);
     const handleShowCardNumberPress = useCallback(() => {
-      setShowCard(!showCard)
+      setShowCard(!showCard);
     }, [showCard]);
-    
 
     function CarNumberComponent() {
       const CardNumberDisplayMemoised = useMemo(
         () => (
           <CardNumberDisplay
             cardDisplayFlag={showCard}
-            cardNumber={"1234567891234569"}
+            cardNumber={card_number || ""}
+            loading={loading}
           />
         ),
-        [cardNumber]
+        [card_number]
       );
 
       return <View>{CardNumberDisplayMemoised}</View>;
@@ -109,9 +114,9 @@ const Card = React.memo(
               </View>
 
               <View style={styles.validThruCvvContainer}>
-                <Text style={styles.validThru}>{`Thru: ${cardValidThru}`}</Text>
+                <Text style={styles.validThru}>{`Thru: ${thru}`}</Text>
                 <Text style={styles.cvv}>
-                  CVV: {cardDetailsDisplayed ? cardCVV : "* * *"}
+                  CVV: {showCard ? cvv : "* * *"}
                 </Text>
               </View>
             </View>
@@ -235,6 +240,9 @@ const styles = StyleSheet.create({
     marginLeft: -24,
     marginRight: -24,
   },
-  cardNumberText:{fontSize:SIZES.h2, fontWeight:"bold", color:COLORS.white}
-
+  cardNumberText: {
+    fontSize: SIZES.h2,
+    fontWeight: "bold",
+    color: COLORS.white,
+  },
 });

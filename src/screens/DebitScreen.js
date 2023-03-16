@@ -11,24 +11,19 @@ import {
   selectAmountSpent,
 } from "../redux/selectors/userSelectors";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { setUserInfoRequest } from "../redux/actions/UserActions";
 
 const DebitScreen = () => {
   const dispatch = useDispatch();
-  const [showCard, setShowCard] = useState(true);
   const loading = useSelector(selectLoading);
-  const spendingLimit = useSelector(selectSpendingLimit);
   const userInfo = useSelector(selectUserInfo);
-  const amountSpent = useSelector(selectAmountSpent);
 
   useEffect(() => {
     dispatch(setUserInfoRequest());
-    // const url = "api/user/1";
-    // fetch(url).then((res) => res.json()).then(res=>console.warn("res",res));
-  },[] );
-  
-  console.warn("userInfo",userInfo)
+  }, [dispatch]);
+
+  console.warn("userInfo", userInfo);
   return (
     <View style={styles.container}>
       <SafeAreaView>
