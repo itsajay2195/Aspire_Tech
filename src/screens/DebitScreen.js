@@ -12,6 +12,7 @@ import {
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfoRequest } from "../redux/actions/UserActions";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 const DebitScreen = () => {
   const dispatch = useDispatch();
@@ -24,9 +25,7 @@ const DebitScreen = () => {
   }, [dispatch]);
 
   if (error) {
-    return <View style={{flex:1, backgroundColor:COLORS.primaryBlue,justifyContent:'center',alignItems:'center'}}>
-      {Alert.alert("Something went wrong")}
-    </View>;
+    return <ErrorComponent/>
   }
 
   return (

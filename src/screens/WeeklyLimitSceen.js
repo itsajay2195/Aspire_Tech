@@ -8,6 +8,7 @@ import { selectUserInfo, selectError } from '../redux/selectors/userSelectors'
 import { COLORS, PLATFORM, SIZES, icons} from '../styles'
 import PrimaryButton from '../components/common/PrimaryButton'
 import { setWeeklySpendingLimitAction } from '../redux/actions/UserActions'
+import ErrorComponent from '../components/common/ErrorComponent'
 
 
 const WeeklyLimit = () => {
@@ -42,9 +43,7 @@ const WeeklyLimit = () => {
   }
 
   if (error) {
-    return <View style={{flex:1, backgroundColor:COLORS.primaryBlue,justifyContent:'center',alignItems:'center'}}>
-      {Alert.alert("Something went wrong")}
-    </View>;
+    return <ErrorComponent/>
   }
 
   return (
