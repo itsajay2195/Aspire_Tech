@@ -8,10 +8,9 @@ import { DEBIT_CARD_SCREEN } from '../../constants/ScreenNames';
 
 function* handleSetUserWeeklyLimit(postData) {
   try {
-    setLoading(true)
+    yield put(setLoading(true));
     const user = yield call(setWeeklyLimitService,postData);
     yield put(setUserInfo(user));
-    setLoading(false)
     yield call(NavigationService.navigate, DEBIT_CARD_SCREEN);
   } catch (error) {
     yield put(setUserInfoFailure());
@@ -20,7 +19,7 @@ function* handleSetUserWeeklyLimit(postData) {
 
 function* handleResetWeeklyLimitService(){
   try {
-    setLoading(true)
+    yield put(setLoading(true));
     const user = yield call(resetWeeklyLimitService);
     yield put(setUserInfo(user));
   } catch (error) {
