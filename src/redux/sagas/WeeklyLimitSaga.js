@@ -3,7 +3,7 @@ import { setWeeklyLimitService,resetWeeklyLimitService } from '../../services/We
 import {SET_WEEKLY_SPENDING_LIMIT,RESET_WEEKLY_LIMIT} from '../actions/ActionConstants'
 import { setLoading, setUserInfo, setUserInfoFailure  } from '../../redux/actions/UserActions';
 import NavigationService from '../../utils/NavigationService';
-
+import { DEBIT_CARD_SCREEN } from '../../constants/ScreenNames';
 
 
 function* handleSetUserWeeklyLimit(postData) {
@@ -12,9 +12,7 @@ function* handleSetUserWeeklyLimit(postData) {
     const user = yield call(setWeeklyLimitService,postData);
     yield put(setUserInfo(user));
     setLoading(false)
-    yield call(NavigationService.navigate, "Debit Card");
-
-    console.warn('ooo')
+    yield call(NavigationService.navigate, DEBIT_CARD_SCREEN);
   } catch (error) {
     yield put(setUserInfoFailure());
   }

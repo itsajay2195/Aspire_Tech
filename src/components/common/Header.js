@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {SvgLogo} from "../../assets/svg/svg";
-
+import { DEBIT_CARD_SCREEN } from "../../constants/ScreenNames";
 
 const Header = ({ showBack }) => {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ const Header = ({ showBack }) => {
       <View style={styles.iconWrapper}>
         {showBack && (
           <MaterialCommunityIcons
-            onPress={() => navigation.navigate("Debit Card")}
+            onPress={() => navigation.navigate(DEBIT_CARD_SCREEN)}
             name="chevron-left"
             size={30}
             color= {COLORS.white}

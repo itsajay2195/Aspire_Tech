@@ -8,15 +8,7 @@ import {
   selectUserInfo,
 } from "../../redux/selectors/userSelectors";
 import {resetWeeklyLimit} from '../../redux/actions/UserActions'
-
-const handleToggleNavigation = (dispatch, navigation, isweeklyLimitEnabled, item) => {
-  const toggleValueSelector = isweeklyLimitEnabled && item.type === "WEEK";
-  if (toggleValueSelector) {
-    dispatch(resetWeeklyLimit());
-  } else {
-    navigation.navigate("Limit");
-  }
-}
+import { WEEKLY_SPENDING_LIMIT_SCREEN } from "../../constants/ScreenNames";
 
 const ListItem = ({ item }) => {
   const { image, title, meta, toggle, isToggleMenu } = item;
@@ -32,7 +24,7 @@ const ListItem = ({ item }) => {
     if(toggleValueSelector){
       dispatch(resetWeeklyLimit());
     }else{
-      navigation.navigate("Limit")
+      navigation.navigate(WEEKLY_SPENDING_LIMIT_SCREEN);
     }
   },[toggleValueSelector,navigation]);
 
