@@ -6,6 +6,7 @@ import {
   SET_EXPENSE_INFO,
   SET_AMOUNT_SPENT,
   SET_WEEKLY_LIMIT_TOGGLED,
+  SET_USER_INFO_FAILURE
 } from "../actions/ActionConstants";
 
 const initialState = {
@@ -31,6 +32,12 @@ const userReducer = (state = initialState, action) => {
         userInfo: action.payload,
         loading: false,
       };
+    case SET_USER_INFO_FAILURE:
+      return{
+        ...state,
+        loading:false,
+        error:true
+      }
     case SET_SPENDING_LIMIT:
       return {
         ...state,

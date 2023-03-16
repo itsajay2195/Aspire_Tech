@@ -1,16 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, StatusBar } from "react-native";
 import { COLORS, PLATFORM, SIZES } from "../styles/index";
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 // import SlidingUpPanel from "rn-sliding-up-panel";
 import Header from "../components/common/Header";
 import CurrencyCard from "../components/common/CurrencyCard";
-import { useSelector } from "react-redux";
 import {
   selectLoading,
   selectSpendingLimit,
@@ -18,15 +11,24 @@ import {
   selectAmountSpent,
 } from "../redux/selectors/userSelectors";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfoRequest } from "../redux/actions/UserActions";
 
 const DebitScreen = () => {
+  const dispatch = useDispatch();
   const [showCard, setShowCard] = useState(true);
   const loading = useSelector(selectLoading);
   const spendingLimit = useSelector(selectSpendingLimit);
   const userInfo = useSelector(selectUserInfo);
   const amountSpent = useSelector(selectAmountSpent);
 
+  useEffect(() => {
+    dispatch(setUserInfoRequest());
+    // const url = "api/user/1";
+    // fetch(url).then((res) => res.json()).then(res=>console.warn("res",res));
+  },[] );
+  
+  console.warn("userInfo",userInfo)
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -54,7 +56,7 @@ const DebitScreen = () => {
           </View>
         </View>
       </View>
-      <SlidingUpPanel/>
+      <SlidingUpPanel />
     </View>
   );
 };

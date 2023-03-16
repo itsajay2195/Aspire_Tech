@@ -1,14 +1,24 @@
-import {SET_LOADING,SET_USER_INFO, SET_SPENDING_LIMIT, SET_MENU_INFO, SET_EXPENSE_INFO, SET_AMOUNT_SPENT, SET_WEEKLY_LIMIT_TOGGLED} from './ActionConstants'
+import {SET_LOADING,SET_USER_INFO, SET_SPENDING_LIMIT, SET_MENU_INFO, SET_EXPENSE_INFO, SET_AMOUNT_SPENT, SET_WEEKLY_LIMIT_TOGGLED, SET_USER_INFO_FAILURE, SET_USER_INFO_REQUEST} from './ActionConstants'
 
 export const setLoading = (payload) => ({
   type: SET_LOADING,
   payload,
 });
 
-export const setUserInfo = (payload) => ({
+export const setUserInfoRequest = ()=>({
+  type:SET_USER_INFO_REQUEST
+})
+
+export const setUserInfo = (payload) => {
+  console.warn(payload)
+  return {
   type: SET_USER_INFO,
   payload,
-});
+}};
+
+export const setUserInfoFailure = ()=>({
+  type:SET_USER_INFO_FAILURE,
+})
 
 export const setSpendingLimit = (payload) => ({
   type: SET_SPENDING_LIMIT,
