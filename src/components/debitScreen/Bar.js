@@ -8,18 +8,22 @@ const Bar = ({ progress }) => {
   // const percentage = Math.floor(amountSpent * 100 / weeklyLimit)
 
   return (
-    <View>
-          <View style={styles.topBar}>
-    </View>
-       <View style={[styles.innerBar,{width: `${80}%`,}]}></View>
-    </View>
-
+   
+    <View style={[styles.container, { height: 15, width: "100%" }]}>
+    <View style={[styles.filler, { backgroundColor: COLORS.primaryGreen, width: `${80}%` }]} />
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
-  topBar:{width:"100%", borderWidth:10,borderRadius:10,borderColor:COLORS.secondaryGreen},
-  innerBar:{position:'absolute', borderWidth:10, borderBottomRightRadius:19, borderTopRightRadius:0,borderBottomLeftRadius:10,borderTopLeftRadius:10,borderColor:COLORS.lightGreen}
+  container: {
+    backgroundColor: COLORS.secondaryGreen,
+    borderRadius: 5,
+    overflow: 'hidden'
+  },
+  filler: {
+    height: '100%',
+    borderRadius: 5,
+  }
 });
-
 export default Bar;

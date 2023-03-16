@@ -10,7 +10,7 @@ import {
 } from "../../redux/actions/UserActions";
 import { selectWeeklyLimitToggled } from "../../redux/selectors/userSelectors";
 
-const SlidingPaneList = ({ spendingLimit }) => {
+export const SlidingPaneList = ({ spendingLimit }) => {
   const panelMenu = [
     {
       id: 1,
@@ -68,93 +68,93 @@ const SlidingPaneList = ({ spendingLimit }) => {
   );
 };
 
-export default SlidingPaneList;
 
-const ListItem = ({ image,title,meta,toggle,item }) => {
+const ListItem = ({ item }) => {
+  const {image,title,meta,toggle,} = item;
   const [toggleEnabled, setToggleEnabled] = useState(false);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const isToggled = useSelector(selectWeeklyLimitToggled);
+  // const dispatch = useDispatch();
+  // const navigation = useNavigation();
+  // const isToggled = useSelector(selectWeeklyLimitToggled);
 
-  useEffect(() => {
-    if (toggle !== null) {
-      setToggleEnabled(true);
-    }
-  }, [toggle]);
+  // useEffect(() => {
+  //   if (toggle !== null) {
+  //     setToggleEnabled(true);
+  //   }
+  // }, [toggle]);
 
-  const updateToggleInfo = useCallback(() => {
-    const url = "/api/user/1/weklylimittoggle";
+  // const updateToggleInfo = useCallback(() => {
+  //   const url = "/api/user/1/weklylimittoggle";
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ weeklyLimitEnabled: true }),
-    })
-      .then((res) => {
-        if (res.status !== 200) throw new Error(res.status);
-        dispatch(setSpendingLimit(null));
-        dispatch(setAmountSpent(0));
-        dispatch(setWeeklyLimitToggled(!isToggled));
-      })
-      .catch((error) => {
-        Alert.alert(String(error + " Something went wrong"));
-      });
-  }, [dispatch, isToggled]);
+  //   fetch(url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ weeklyLimitEnabled: true }),
+  //   })
+  //     .then((res) => {
+  //       if (res.status !== 200) throw new Error(res.status);
+  //       dispatch(setSpendingLimit(null));
+  //       dispatch(setAmountSpent(0));
+  //       dispatch(setWeeklyLimitToggled(!isToggled));
+  //     })
+  //     .catch((error) => {
+  //       Alert.alert(String(error + " Something went wrong"));
+  //     });
+  // }, [dispatch, isToggled]);
 
-  const handleToggleSwitch = useCallback(() => {
-    if (!toggleEnabled) return;
+  // const handleToggleSwitch = useCallback(() => {
+  //   if (!toggleEnabled) return;
 
-    if (title === "Weekly spending limit") {
-      if (item.isToggled) {
-        Alert.alert(
-          "Weekly Limit",
-          "Are you sure that you want to turn me off? you might lose control of your cash flow",
-          [
-            { text: "Cancel" },
-            {
-              text: "Proceed",
-              onPress: () => {
-                updateToggleInfo();
-              },
-            },
-          ],
-          { cancelable: false }
-        );
-      } else {
-        navigation.navigate("Limit", {
-          id: item.id,
-          toggledValue: item.isToggled,
-        });
-      }
-    }
-  }, [item, navigation, toggleEnabled, updateToggleInfo]);
+  //   if (title === "Weekly spending limit") {
+  //     if (item.isToggled) {
+  //       Alert.alert(
+  //         "Weekly Limit",
+  //         "Are you sure that you want to turn me off? you might lose control of your cash flow",
+  //         [
+  //           { text: "Cancel" },
+  //           {
+  //             text: "Proceed",
+  //             onPress: () => {
+  //               updateToggleInfo();
+  //             },
+  //           },
+  //         ],
+  //         { cancelable: false }
+  //       );
+  //     } else {
+  //       navigation.navigate("Limit", {
+  //         id: item.id,
+  //         toggledValue: item.isToggled,
+  //       });
+  //     }
+  //   }
+  // }, [item, navigation, toggleEnabled, updateToggleInfo]);
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.contentWrapper}>
         <Image source={image} style={{ height: 30, width: 30 }} />
 
         <View style={styles.menuInfoWrapper}>
-          <Text style={{ fontWeight: "400" }}>{title}</Text>
-          <Text style={{ color: "#b9b9b9", fontSize: 14 }} numberOfLines={2}>
+          <Text style={styles.titlestyle}>{title}</Text>
+          <Text style={styles.metaTextStyle} numberOfLines={2}>
             {meta}
           </Text>
         </View>
       </View>
 
-      {toggleEnabled && (
+      {toggle && (
         <Switch
           style={{ transform: [{ scaleX: 0.6 }, { scaleY: 0.6 }] }}
           trackColor={{
             false: COLORS.toggleFalseTrackColor,
             true: COLORS.toggleTrueTrackColor,
           }}
-          thumbColor={isToggled ? COLORS.white : COLORS.white}
+          thumbColor={toggle ? COLORS.white : COLORS.white}
           ios_backgroundColor={COLORS.toggleFalseTrackColor}
-          onValueChange={handleToggleSwitch}
-          value={isToggled}
+          onValueChange={()=>console.log("ok")}
+          value={toggle}
         />
       )}
     </View>
@@ -165,9 +165,17 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: SIZES.padding / 2,
+    paddingHorizontal: SIZES.padding,
+    paddingVertical:SIZES.padding/2,
+    backgroundColor:"white",
+    
   },
   menuInfoWrapper: {
     width: "80%",
   },
+  contentWrapper:{ flexDirection: "row", justifyContent: "space-between" },
+  titlestyle:{ fontWeight: "400" },
+  metaTextStyle:{ color: "#b9b9b9", fontSize: 14 }
 });
+
+export default ListItem;

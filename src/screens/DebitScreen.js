@@ -3,17 +3,12 @@ import {
   Text,
   View,
   SafeAreaView,
-  Animated,
-  TouchableOpacity,
-  Button,
   StatusBar,
 } from "react-native";
 import { COLORS, PLATFORM, SIZES } from "../styles/index";
 import React, { useState, useCallback } from "react";
 // import SlidingUpPanel from "rn-sliding-up-panel";
 import Header from "../components/common/Header";
-import Card from "../components/debitScreen/Card";
-import SlidingPaneListItem from "../components/debitScreen/SlidingPaneList";
 import CurrencyCard from "../components/common/CurrencyCard";
 import { useSelector } from "react-redux";
 import {
@@ -22,46 +17,8 @@ import {
   selectUserInfo,
   selectAmountSpent,
 } from "../redux/selectors/userSelectors";
-import Bar from "../components/debitScreen/Bar";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
-import { SvgShow, SvgRemove } from "../assets/svg/svg";
-import PopUpCard from "../components/debitScreen/PopupCard";
 
-const RenderSlidingPanelContent = ({amountSpent, showCard, spendingLimit}) => (
-  <>
-    <View style={styles.debitCardComponent}>
-      <Card showCard={showCard} />
-    </View>
-    <View style={styles.slidingUpPanelStyle}>
-      <View style={styles.slideupContent}>
-        {spendingLimit && (
-          <>
-            <View style={styles.spendingLimitWrapper}>
-              <Text style={styles.debitCardSpendingLimitText}>
-                Debit card spending limit
-              </Text>
-              <Text style={styles.debitCardSpendingLimitValue}>
-                <Text style={styles.debitCardSpendingLimitCurrentValue}>
-                  $
-                  {amountSpent
-                    ?.toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                </Text>
-                | $
-                {spendingLimit
-                  ?.toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </Text>
-            </View>
-            <View style={{ padding: 5 }}>
-              <Bar/>
-            </View>
-          </>
-        )}
-      </View>
-    </View>
-  </>
-);
 
 const DebitScreen = () => {
   const [showCard, setShowCard] = useState(true);
@@ -70,19 +27,6 @@ const DebitScreen = () => {
   const userInfo = useSelector(selectUserInfo);
   const amountSpent = useSelector(selectAmountSpent);
 
-  const draggableRange = React.useMemo(
-    () => ({
-      top: PLATFORM === "ios" ? SIZES.height - 30 : SIZES.height - 50,
-      bottom: SIZES.height / 1.5,
-    }),
-    []
-  );
-
-  const [viewHeight, setViewHeight] = useState(0);
-  const handleLayout = (event) => {
-    const { height } = event.nativeEvent.layout;
-    setViewHeight(height);
-  };
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -110,7 +54,7 @@ const DebitScreen = () => {
           </View>
         </View>
       </View>
-      <PopUpCard/>
+      <SlidingUpPanel/>
     </View>
   );
 };
