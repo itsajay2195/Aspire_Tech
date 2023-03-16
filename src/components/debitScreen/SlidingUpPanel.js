@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   flatListFooterStyle: {
-    backgroundColor: "white",
+    backgroundColor: COLORS.white,
     marginTop: -1,
   },
 });

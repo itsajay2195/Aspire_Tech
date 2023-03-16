@@ -22,8 +22,7 @@ const DebitScreen = () => {
   useEffect(() => {
     dispatch(setUserInfoRequest());
   }, [dispatch]);
-
-  console.warn("userInfo", userInfo);
+  
   return (
     <View style={styles.container}>
       <SafeAreaView>

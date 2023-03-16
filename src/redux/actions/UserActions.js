@@ -10,7 +10,6 @@ export const setUserInfoRequest = ()=>({
 })
 
 export const setUserInfo = (payload) => {
-  console.warn(payload)
   return {
   type: SET_USER_INFO,
   payload,

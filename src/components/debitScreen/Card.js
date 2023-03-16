@@ -88,7 +88,7 @@ const Card = React.memo(
           >
             {false ? <SvgShow /> : <SvgRemove />}
             <Text style={styles.cardButtonText}>
-              {cardDetailsDisplayed ? "Hide card number" : "Show card number"}
+              {showCard ? "Hide card number" : "Show card number"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     width: 8,
     borderRadius: 8,
     margin: 2,
-    backgroundColor: "white",
+    backgroundColor: COLORS.white,
   },
   shadow: {
     shadowColor: "#AAA",
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: -90,
   },
   cardImageContainer: {
-    backgroundColor: "white",
+    backgroundColor: COLORS.white,
     alignSelf: "flex-end",
     width: 151,
     height: 45,
@@ -207,16 +207,16 @@ const styles = StyleSheet.create({
     alignContent: "space-between",
   },
   userNameContainer: { flex: 1, justifyContent: "center", marginLeft: 24 },
-  userName: { color: "white", fontWeight: "700", fontSize: 22 },
+  userName: { color: COLORS.white, fontWeight: "700", fontSize: 22 },
   cardNumberContainer: {
     flex: 1,
     marginLeft: 24,
     alignContent: "space-between",
   },
   validThruCvvContainer: { flexDirection: "row", alignItems: "center" },
-  validThru: { color: "white", fontWeight: "bold", fontSize: 16 },
+  validThru: { color: COLORS.white, fontWeight: "bold", fontSize: 16 },
   cvv: {
-    color: "white",
+    color: COLORS.white,
     fontWeight: "bold",
     fontSize: 15,
     marginLeft: 10,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   },
   bottomLogo: { width: 59 },
   cardOverlay: {
-    backgroundColor: "white",
+    backgroundColor: COLORS.white,
     width: width,
     height: 85,
     borderTopRightRadius: 18,

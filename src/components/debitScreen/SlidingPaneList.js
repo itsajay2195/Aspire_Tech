@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: SIZES.padding,
     paddingVertical:SIZES.padding/2,
-    backgroundColor:"white",
+    backgroundColor:COLORS.white,
     
   },
   menuInfoWrapper: {
