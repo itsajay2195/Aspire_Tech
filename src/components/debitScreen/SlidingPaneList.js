@@ -4,74 +4,21 @@ import { icons, COLORS, SIZES } from "../../styles/index";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setAmountSpent,
-  setSpendingLimit,
-  setWeeklyLimitToggled,
-} from "../../redux/actions/UserActions";
+  selectLoading,
+  selectUserInfo,
+} from "../../redux/selectors/userSelectors";
 import { selectWeeklyLimitToggled } from "../../redux/selectors/userSelectors";
-
-export const SlidingPaneList = ({ spendingLimit }) => {
-  const panelMenu = [
-    {
-      id: 1,
-      image: icons.insight,
-      title: "Top-up-account",
-      meta: "Deposit money to your account to use with card",
-      toggle: false,
-    },
-    {
-      id: 2,
-      image: icons.transfer,
-      title: "Weekly spending limit",
-      meta: "you haven't set any spending limit on card",
-      toggle: true,
-    },
-    {
-      id: 3,
-      image: icons.freeze,
-      title: "Freeze card",
-      meta: "Your Debit card is currently active",
-      toggle: null,
-    },
-    {
-      id: 4,
-      image: icons.newCard,
-      title: "Get a new card ",
-      meta: "This activates your current debit card",
-      toggle: false,
-    },
-    {
-      id: 5,
-      image: icons.deactivate,
-      title: "Deactivated cards",
-      meta: "This deactivates your current debit card",
-      toggle: false,
-    },
-  ];
-
-  return (
-    <>
-      {panelMenu.map((item) => (
-        <ListItem
-          key={item.id}
-          image={item.image}
-          title={item.title}
-          meta={
-            item.title === "Weekly spending limit" && spendingLimit
-              ? `Your weekly spending limit is S$${spendingLimit}`
-              : item.meta
-          }
-          toggle={item.toggle}
-        />
-      ))}
-    </>
-  );
-};
 
 
 const ListItem = ({ item }) => {
-  const {image,title,meta,toggle,isToggleMenu} = item;
+  const { image, title, meta, toggle, isToggleMenu } = item;
   const [toggleEnabled, setToggleEnabled] = useState(false);
+  const loading = useSelector(selectLoading);
+  const userInfo = useSelector(selectUserInfo);
+  const isweeklyLimitEnabled = userInfo?.weeklyLimitEnabled;
+
+  const toggleValueSelector =  isweeklyLimitEnabled && item.type==="WEEK"
+  
   // const dispatch = useDispatch();
   // const navigation = useNavigation();
   // const isToggled = useSelector(selectWeeklyLimitToggled);
@@ -130,7 +77,7 @@ const ListItem = ({ item }) => {
   //     }
   //   }
   // }, [item, navigation, toggleEnabled, updateToggleInfo]);
-
+  console.warn(item.type, isweeklyLimitEnabled,item.type === "WEEK" && isweeklyLimitEnabled)
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
@@ -153,8 +100,8 @@ const ListItem = ({ item }) => {
           }}
           thumbColor={toggle ? COLORS.white : COLORS.white}
           ios_backgroundColor={COLORS.toggleFalseTrackColor}
-          onValueChange={()=>console.log("ok")}
-          value={toggle}
+          onValueChange={() => console.log("ok")}
+          value={toggleValueSelector}
         />
       )}
     </View>
@@ -166,16 +113,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: SIZES.padding,
-    paddingVertical:SIZES.padding/2,
-    backgroundColor:COLORS.white,
-    
+    paddingVertical: SIZES.padding / 2,
+    backgroundColor: COLORS.white,
   },
   menuInfoWrapper: {
     width: "80%",
   },
-  contentWrapper:{ flexDirection: "row", justifyContent: "space-between" },
-  titlestyle:{ fontWeight: "400" },
-  metaTextStyle:{ color: "#b9b9b9", fontSize: 14 }
+  contentWrapper: { flexDirection: "row", justifyContent: "space-between" },
+  titlestyle: { fontWeight: "400" },
+  metaTextStyle: { color: "#b9b9b9", fontSize: 14 },
 });
 
 export default ListItem;

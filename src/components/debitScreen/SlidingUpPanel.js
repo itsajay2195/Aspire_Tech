@@ -24,6 +24,7 @@ const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 const panelMenu = [
   {
     id: 1,
+    type:"MENU",
     image: icons.insight,
     title: "Top-up-account",
     meta: "Deposit money to your account to use with card",
@@ -32,6 +33,7 @@ const panelMenu = [
   },
   {
     id: 2,
+    type:"WEEK",
     image: icons.transfer,
     title: "Weekly spending limit",
     meta: "you haven't set any spending limit on card",
@@ -40,7 +42,9 @@ const panelMenu = [
   },
   {
     id: 3,
+    type:"MENU",
     image: icons.freeze,
+    type:"FREEZE_TOGGLE",
     title: "Freeze card",
     meta: "Your Debit card is currently active",
     isToggleMenu: true,
@@ -48,6 +52,7 @@ const panelMenu = [
   },
   {
     id: 4,
+    type:"MENU",
     image: icons.newCard,
     title: "Get a new card ",
     meta: "This activates your current debit card",
@@ -56,6 +61,7 @@ const panelMenu = [
   },
   {
     id: 5,
+    type:"MENU",
     image: icons.deactivate,
     title: "Deactivated cards",
     meta: "This deactivates your current debit card",

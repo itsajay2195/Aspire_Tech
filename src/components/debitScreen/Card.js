@@ -43,21 +43,12 @@ const CardNumberDisplay = ({ cardDisplayFlag, cardNumber }) => {
 };
 
 const Card = React.memo(
-  ({
-    nameOnCard,
-    cardNumber,
-    cardValidThru,
-    cardCVV,
-    cardDetailsDisplayed,
-    setCardNumberVisible,
-  }) => {
+  () => {
     const userInfo = useSelector(selectUserInfo);
     const loading = useSelector(selectLoading);
     const card_number = userInfo?.card_info?.card_number;
     const thru = userInfo?.card_info?.thru;
     const cvv = userInfo?.card_info?.cvv;
-    const weekly_limit = userInfo?.card_info?.weekly_limit;
-    const amount_spent = userInfo?.card_info?.amount_spent;
 
     const [showCard, setShowCard] = useState(false);
     const handleShowCardNumberPress = useCallback(() => {

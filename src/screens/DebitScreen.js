@@ -6,9 +6,7 @@ import Header from "../components/common/Header";
 import CurrencyCard from "../components/common/CurrencyCard";
 import {
   selectLoading,
-  selectSpendingLimit,
   selectUserInfo,
-  selectAmountSpent,
 } from "../redux/selectors/userSelectors";
 import SlidingUpPanel from "../components/debitScreen/SlidingUpPanel";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +20,7 @@ const DebitScreen = () => {
   useEffect(() => {
     dispatch(setUserInfoRequest());
   }, [dispatch]);
-  
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
