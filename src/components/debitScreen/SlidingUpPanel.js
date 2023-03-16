@@ -35,6 +35,7 @@ const panelMenu = [
       image: icons.insight,
       title: "Top-up-account",
       meta: "Deposit money to your account to use with card",
+      isToggleMenu:false,
       toggle: false,
     },
     {
@@ -42,6 +43,7 @@ const panelMenu = [
       image: icons.transfer,
       title: "Weekly spending limit",
       meta: "you haven't set any spending limit on card",
+      isToggleMenu:true,
       toggle: true,
     },
     {
@@ -49,6 +51,7 @@ const panelMenu = [
       image: icons.freeze,
       title: "Freeze card",
       meta: "Your Debit card is currently active",
+      isToggleMenu:true,
       toggle: null,
     },
     {
@@ -56,6 +59,7 @@ const panelMenu = [
       image: icons.newCard,
       title: "Get a new card ",
       meta: "This activates your current debit card",
+      isToggleMenu:false,
       toggle: false,
     },
     {
@@ -63,6 +67,7 @@ const panelMenu = [
       image: icons.deactivate,
       title: "Deactivated cards",
       meta: "This deactivates your current debit card",
+      isToggleMenu:false,
       toggle: false,
     },
   ];

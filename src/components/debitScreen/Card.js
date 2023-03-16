@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -53,16 +53,19 @@ const Card = React.memo(
     cardDetailsDisplayed,
     setCardNumberVisible,
   }) => {
+
+    const [showCard,setShowCard] = useState(false)
     const handleShowCardNumberPress = useCallback(() => {
-      setCardNumberVisible({ cardNumberVisible: !cardDetailsDisplayed });
-    }, [cardDetailsDisplayed, setCardNumberVisible]);
+      setShowCard(!showCard)
+    }, [showCard]);
+    
 
     function CarNumberComponent() {
       const CardNumberDisplayMemoised = useMemo(
         () => (
           <CardNumberDisplay
-            cardDisplayFlag={true}
-            cardNumber={"123456789123456"}
+            cardDisplayFlag={showCard}
+            cardNumber={"1234567891234569"}
           />
         ),
         [cardNumber]

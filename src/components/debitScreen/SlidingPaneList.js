@@ -70,7 +70,7 @@ export const SlidingPaneList = ({ spendingLimit }) => {
 
 
 const ListItem = ({ item }) => {
-  const {image,title,meta,toggle,} = item;
+  const {image,title,meta,toggle,isToggleMenu} = item;
   const [toggleEnabled, setToggleEnabled] = useState(false);
   // const dispatch = useDispatch();
   // const navigation = useNavigation();
@@ -144,7 +144,7 @@ const ListItem = ({ item }) => {
         </View>
       </View>
 
-      {toggle && (
+      {isToggleMenu && (
         <Switch
           style={{ transform: [{ scaleX: 0.6 }, { scaleY: 0.6 }] }}
           trackColor={{
