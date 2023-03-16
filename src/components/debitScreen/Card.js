@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { COLORS } from "../../styles";
+import { COLORS, SIZES } from "../../styles";
 import {
   SvgVisaLogo,
   SvgAspireLogo,
@@ -25,83 +25,23 @@ const CARD_WIDTH = width - 48; //Ensures that the currency notation and the card
 const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 
 const CardNumberDisplay = ({ cardDisplayFlag, cardNumber }) => {
-  const cardNumberParts = cardNumber.match(/.{1,4}/g) || [];
+     // Split the card number into groups of 4 digits
+     const groups = cardNumber.match(/.{1,4}/g) || [];
 
-  if (!cardDisplayFlag || !cardNumber) {
-    return (
-      <View style={{ flexDirection: "row" }}>
-        <View
-          style={{
-            marginLeft: -4,
-            flexDirection: "row",
-            width: 50,
-            alignItems: "center",
-          }}
-        >
-          {[1, 2, 3, 4].map((_, i) => (
-            <View key={i} style={styles.bullets}></View>
-          ))}
-        </View>
-        <View
-          style={{
-            marginLeft: 20,
-            flexDirection: "row",
-            width: 50,
-            alignItems: "center",
-          }}
-        >
-          {[1, 2, 3, 4].map((_, i) => (
-            <View key={i} style={styles.bullets}></View>
-          ))}
-        </View>
-        <View
-          style={{
-            marginLeft: 20,
-            flexDirection: "row",
-            marginRight: 20,
-            width: 50,
-            alignItems: "center",
-          }}
-        >
-          {[1, 2, 3, 4].map((_, i) => (
-            <View key={i} style={styles.bullets}></View>
-          ))}
-        </View>
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "500",
-            fontSize: 16,
-            width: 50,
-            letterSpacing: 2,
-            textAlign: "center",
-          }}
-        >
-          {cardNumberParts[cardNumberParts.length - 1]}
-        </Text>
-      </View>
-    );
-  }
+     // Mask all but the last group if show is false
+     const maskedGroups = cardDisplayFlag
+       ? groups
+       : groups.map((group, index) => (index === groups.length - 1 ? group : '****'));
+ 
+     // Concatenate the groups with spaces in between
+     const displayString = maskedGroups.join(' ');
+ 
+     return <Text style={styles.cardNumberText}>{displayString}</Text>;
+ 
 
-  return (
-    <View style={{ flexDirection: "row" }}>
-      {cardNumberParts.map((part, i) => (
-        <Text
-          key={i}
-          style={{
-            color: "white",
-            fontWeight: "500",
-            fontSize: 16,
-            marginLeft: i > 0 ? 20 : 0,
-            width: 50,
-            letterSpacing: 2,
-          }}
-        >
-          {part}
-        </Text>
-      ))}
-    </View>
-  );
+
+
+
 };
 
 const Card = React.memo(
@@ -117,15 +57,19 @@ const Card = React.memo(
       setCardNumberVisible({ cardNumberVisible: !cardDetailsDisplayed });
     }, [cardDetailsDisplayed, setCardNumberVisible]);
 
-    const cardNumberDisplay = useMemo(
-      () => (
-        <CardNumberDisplay
-          cardDetailsDisplayed={false}
-          cardNumber={cardNumber}
-        />
-      ),
-      [cardNumber]
-    );
+    function CarNumberComponent() {
+      const CardNumberDisplayMemoised = useMemo(
+        () => (
+          <CardNumberDisplay
+            cardDisplayFlag={true}
+            cardNumber={"123456789123456"}
+          />
+        ),
+        [cardNumber]
+      );
+
+      return <View>{CardNumberDisplayMemoised}</View>;
+    }
 
     return (
       <View style={styles.cardContainer}>
@@ -154,10 +98,11 @@ const Card = React.memo(
             </View>
             <View style={styles.cardNumberContainer}>
               <View style={{ flex: 1 }}>
-                <CardNumberDisplay
+                <CarNumberComponent />
+                {/* <CardNumberDisplay
                   cardDisplayFlag={true}
                   cardNumber={"123456778987"}
-                />
+                /> */}
               </View>
 
               <View style={styles.validThruCvvContainer}>
@@ -260,9 +205,15 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     alignContent: "space-between",
   },
-  validThruCvvContainer: { flexDirection: "row" },
-  validThru: { color: "white", fontWeight: "400", fontSize: 16 },
-  cvv: { color: "white", fontWeight: "400", fontSize: 15, marginLeft: 10 },
+  validThruCvvContainer: { flexDirection: "row", alignItems: "center" },
+  validThru: { color: "white", fontWeight: "bold", fontSize: 16 },
+  cvv: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 15,
+    marginLeft: 10,
+    textAlign: "center",
+  },
   bottomLogoContainer: {
     marginBottom: 24,
     marginRight: 24,
@@ -281,4 +232,6 @@ const styles = StyleSheet.create({
     marginLeft: -24,
     marginRight: -24,
   },
+  cardNumberText:{fontSize:SIZES.h2, fontWeight:"bold", color:COLORS.white}
+
 });
