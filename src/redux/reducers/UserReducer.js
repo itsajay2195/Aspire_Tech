@@ -16,7 +16,7 @@ const initialState = {
   spendingLimit: null,
   amountSpent: null,
   weeklyLimitToggled: null,
-  expenseInfo: [],
+  denomination:null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -30,6 +30,10 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userInfo: action.payload.data,
+        spendingLimit:action.payload.data.weekly_limit,
+        amountSpent:action.payload.data.amount_spent,
+        weeklyLimitToggled:action.payload.data.weeklyLimitEnabled,
+        denomination:action.payload.data.denomination,
         loading: false,
       };
     case SET_USER_INFO_FAILURE:

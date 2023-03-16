@@ -15,11 +15,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "./Card";
 import ListItem from "./SlidingPaneList";
 import Bar from "./Bar";
+import { useSelector } from 'react-redux';
+import { selectAmountSpent, selectSpendingLimit, selectDenomination} from "../../redux/selectors/userSelectors";
 
 const { width, height } = Dimensions.get("screen");
 
 const CARD_WIDTH = width - 48; //Ensures that the currency notation and the card's left end align just like the mock up
 const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
+let amountSpent =0, spendingLimit = 0, denomination;
 
 const panelMenu = [
   {
@@ -89,15 +92,15 @@ const flatListHeaderComponent = () => (
         <Text style={{ fontSize: 14 }}>Debit card spending limit</Text>
         <Text style={{ color: COLORS.gray, fontSize: 14 }}>
           <Text style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}>
-            $500
-            {/* {amountSpent
+          {`${denomination} ` }  
+            {amountSpent
               ?.toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "} */}
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
           </Text>
-          | $200
-          {/* {spendingLimit
+          | {`${denomination} ` } 
+           {spendingLimit
             ?.toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
       </View>
       <Bar />
@@ -114,15 +117,14 @@ const createOneButtonAlert = (title, message) =>
   ]);
 
 const SlidingUpPanel = (props) => {
-
-  let spendingLimit = 5000;
-  let spendingLimitExhausted = 300;
+  amountSpent = useSelector(selectAmountSpent);;
+  spendingLimit = useSelector(selectSpendingLimit);
+  denomination = useSelector(selectDenomination);
+ 
   let cardNumber = "12345678912";
   let userId = 1;
-  let currencyUnits = "USD";
   let isSpendingLimitSet = true;
-  let appColorSolid = true;
-  let scrollheight = isSpendingLimitSet ? 580 : 540;
+
 
   const manageLoadingIndicator = (displayFlag, message) => {
     dispatchEvent(

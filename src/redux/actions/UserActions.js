@@ -1,4 +1,4 @@
-import {SET_LOADING,SET_USER_INFO, SET_SPENDING_LIMIT, SET_MENU_INFO, SET_EXPENSE_INFO, SET_AMOUNT_SPENT, SET_WEEKLY_LIMIT_TOGGLED, SET_USER_INFO_FAILURE, SET_USER_INFO_REQUEST} from './ActionConstants'
+import {SET_LOADING,SET_USER_INFO, SET_WEEKLY_SPENDING_LIMIT, SET_MENU_INFO, SET_EXPENSE_INFO, SET_AMOUNT_SPENT, SET_WEEKLY_LIMIT_TOGGLED, SET_USER_INFO_FAILURE, SET_USER_INFO_REQUEST} from './ActionConstants'
 
 export const setLoading = (payload) => ({
   type: SET_LOADING,
@@ -19,8 +19,8 @@ export const setUserInfoFailure = ()=>({
   type:SET_USER_INFO_FAILURE,
 })
 
-export const setSpendingLimit = (payload) => ({
-  type: SET_SPENDING_LIMIT,
+export const setWeeklySpendingLimitAction = (payload) => ({
+  type: SET_WEEKLY_SPENDING_LIMIT,
   payload,
 });
 

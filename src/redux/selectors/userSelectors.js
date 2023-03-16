@@ -5,3 +5,4 @@ export const selectMenuInfo = state => state.user.menuInfo
 export const selectExpenseInfo = state => state.user.expenseInfo
 export const selectAmountSpent = state => state.user.amountSpent
 export const selectWeeklyLimitToggled = state => state.user.weeklyLimitToggled
+export const selectDenomination = state => state.user.denomination

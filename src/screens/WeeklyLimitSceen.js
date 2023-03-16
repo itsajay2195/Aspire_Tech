@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import { selectUserInfo } from '../redux/selectors/userSelectors'
 import { COLORS, PLATFORM, SIZES, icons} from '../styles'
 import PrimaryButton from '../components/common/PrimaryButton'
+import { setWeeklySpendingLimitAction } from '../redux/actions/UserActions'
 
 
 const WeeklyLimit = (props) => {
@@ -21,9 +22,9 @@ const WeeklyLimit = (props) => {
 
 
 
-  const saveSpendingLimit = (val, id, isToggled) => {
+  const saveSpendingLimit = () => {
 
-    let num = parseFloat(val.replace(',', ''))//  this is basically done to check if the user inputted number is less than 0 or not
+    let num = parseFloat(limitFieldValue.replace(',', ''))//  this is basically done to check if the user inputted number is less than 0 or not
     if (num < 0) {
       Alert.alert('Amount cannot be less than Zero')
       return
@@ -34,18 +35,17 @@ const WeeklyLimit = (props) => {
       return
     }
 
-
-    let decimalStrippedValue = val.includes(".") ? parseFloat(val.split(".")[0].replace(',', '')) : num // this will strip the contents after the decimal point
+    let decimalStrippedValue = limitFieldValue.includes(".") ? parseFloat(limitFieldValue.split(".")[0].replace(',', '')) : num // this will strip the contents after the decimal point
 
     if (userInfo?.card_info?.available_balance < decimalStrippedValue) {
       Alert.alert('Insufficeint balance')
       return
     }
-
-    dispatch(setSpendingLimit(decimalStrippedValue))
-    dispatch(setWeeklyLimitToggled(!isToggled))
-
-    navigation.navigate('Debit Card')
+ 
+    let postRequestData={limitValue:num,weeklyLimitEnabled:true}
+    dispatch(setWeeklySpendingLimitAction(postRequestData))
+   
+    // navigation.navigate('Debit Card')
   }
 
   const onSaveClick = () => {
@@ -68,8 +68,6 @@ const WeeklyLimit = (props) => {
           <Text style={{ left: 10 }}>Set a weekly debit card spending limit</Text>
         </View>
 
-
-
         <View style={styles.currenyLimitContainer}>
           <CurrencyCard />
           <TextInput style={{ paddingHorizontal: SIZES.padding, fontWeight: 'bold', width: '100%' }} value={limitFieldValue} onChangeText={(text) => onLimitFieldValueChange(text)} />
@@ -84,21 +82,12 @@ const WeeklyLimit = (props) => {
         <View style={styles.tagsContainer}>
           <Tags setLimitFieldValue={onLimitFieldValueChange} />
         </View>
-{/* 
-        <ScrollView>
-          <Text numberOfLines={2} style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>Your spent analysis for the last 4 months </Text>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <BarChart />
-          </View>
-        </ScrollView> */}
 
       </View>
 
-
-      {modalVisible && <PasswordPane modalVisible={modalVisible} setModalVisible={setModalVisible} saveSpendingLimit={saveSpendingLimit} id={id} value={limitFieldValue} />}
       <SafeAreaView style={styles.saveButtonContainer}>
 
-        <PrimaryButton isDisabled={!limitFieldValue} height={60} width="80%" onPress={onSaveClick} btnText={"Save"} />
+        <PrimaryButton isDisabled={!limitFieldValue} height={60} width="80%" onPress={saveSpendingLimit} btnText={"Save"} />
 
       </SafeAreaView>
     </View>
