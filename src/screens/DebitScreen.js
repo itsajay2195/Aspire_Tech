@@ -19,7 +19,7 @@ const DebitScreen = () => {
 
   useEffect(() => {
     dispatch(setUserInfoRequest());
-  }, [dispatch]);
+  });
 
   return (
     <View style={styles.container}>

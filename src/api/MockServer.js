@@ -35,7 +35,7 @@ window.server = createServer({
         constData['weekly_limit'] =  limitValue;
         constData['weeklyLimitEnabled'] =  weeklyLimitEnabled;
 
-        return new Response(200, {}, constData);
+        return new Response(200, {},{data: constData});
       } else {
         return new Response(
           400,
