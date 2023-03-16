@@ -12,7 +12,7 @@ let constData = {
   },
   weekly_limit: null,
   amount_spent: 34000,
-  weeklyLimitEnabled: true,
+  weeklyLimitEnabled: false,
   denomination:"USD"
 };
 
@@ -46,10 +46,15 @@ window.server = createServer({
       }
     });
 
-    // this.post("/api/user/1/setweeklylimit", (schema, request) => {
-    //   const data = JSON.parse(request.requestBody);
-    //   return new Response(200, {}, data);
-    // });
+    this.post("/api/user/1/resetWeeklylimit", (schema, request) => {
+        constData['weekly_limit'] =  null;
+        constData['weeklyLimitEnabled'] =  false;
+        constData['amount_spent'] = null;
+
+        return new Response(200, {},{data: constData});
+      
+     
+    });
 
   },
 });

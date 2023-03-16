@@ -6,7 +6,8 @@ import {
   SET_EXPENSE_INFO,
   SET_AMOUNT_SPENT,
   SET_WEEKLY_LIMIT_TOGGLED,
-  SET_USER_INFO_FAILURE
+  SET_USER_INFO_FAILURE,
+  RESET_WEEKLY_LIMIT
 } from "../actions/ActionConstants";
 
 const initialState = {

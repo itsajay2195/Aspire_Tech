@@ -7,9 +7,16 @@ import {
   selectLoading,
   selectUserInfo,
 } from "../../redux/selectors/userSelectors";
-import { selectWeeklyLimitToggled } from "../../redux/selectors/userSelectors";
+import {resetWeeklyLimit} from '../../redux/actions/UserActions'
 
-
+const handleToggleNavigation = (dispatch, navigation, isweeklyLimitEnabled, item) => {
+  const toggleValueSelector = isweeklyLimitEnabled && item.type === "WEEK";
+  if (toggleValueSelector) {
+    dispatch(resetWeeklyLimit());
+  } else {
+    navigation.navigate("Limit");
+  }
+}
 
 const ListItem = ({ item }) => {
   const { image, title, meta, toggle, isToggleMenu } = item;
@@ -17,73 +24,23 @@ const ListItem = ({ item }) => {
   const loading = useSelector(selectLoading);
   const userInfo = useSelector(selectUserInfo);
   const isweeklyLimitEnabled = userInfo?.weeklyLimitEnabled;
+  const dispatch = useDispatch();
 
   const toggleValueSelector =  isweeklyLimitEnabled && item.type==="WEEK"
-  
- 
-  // const navigation = useNavigation();
-  // const isToggled = useSelector(selectWeeklyLimitToggled);
+   
+  const handleToggleNavigation = useCallback(()=>{
+    if(toggleValueSelector){
+      dispatch(resetWeeklyLimit());
+    }else{
+      navigation.navigate("Limit")
+    }
+  },[toggleValueSelector,navigation]);
 
-  // useEffect(() => {
-  //   if (toggle !== null) {
-  //     setToggleEnabled(true);
-  //   }
-  // }, [toggle]);
-
-  // const updateToggleInfo = useCallback(() => {
-  //   const url = "/api/user/1/weklylimittoggle";
-
-  //   fetch(url, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ weeklyLimitEnabled: true }),
-  //   })
-  //     .then((res) => {
-  //       if (res.status !== 200) throw new Error(res.status);
-  //       dispatch(setSpendingLimit(null));
-  //       dispatch(setAmountSpent(0));
-  //       dispatch(setWeeklyLimitToggled(!isToggled));
-  //     })
-  //     .catch((error) => {
-  //       Alert.alert(String(error + " Something went wrong"));
-  //     });
-  // }, [dispatch, isToggled]);
-
-  // const handleToggleSwitch = useCallback(() => {
-  //   if (!toggleEnabled) return;
-
-  //   if (title === "Weekly spending limit") {
-  //     if (item.isToggled) {
-  //       Alert.alert(
-  //         "Weekly Limit",
-  //         "Are you sure that you want to turn me off? you might lose control of your cash flow",
-  //         [
-  //           { text: "Cancel" },
-  //           {
-  //             text: "Proceed",
-  //             onPress: () => {
-  //               updateToggleInfo();
-  //             },
-  //           },
-  //         ],
-  //         { cancelable: false }
-  //       );
-  //     } else {
-  //       navigation.navigate("Limit", {
-  //         id: item.id,
-  //         toggledValue: item.isToggled,
-  //       });
-  //     }
-  //   }
-  // }, [item, navigation, toggleEnabled, updateToggleInfo]);
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
-        <Image source={image} style={{ height: 30, width: 30 }} />
-
+        <Image source={image} style={styles.iconStyle} />
         <View style={styles.menuInfoWrapper}>
           <Text style={styles.titlestyle}>{title}</Text>
           <Text style={styles.metaTextStyle} numberOfLines={2}>
@@ -101,7 +58,7 @@ const ListItem = ({ item }) => {
           }}
           thumbColor={toggle ? COLORS.white : COLORS.white}
           ios_backgroundColor={COLORS.toggleFalseTrackColor}
-          onValueChange={()=> navigation.navigate("Limit")}
+          onValueChange={handleToggleNavigation}
           value={toggleValueSelector}
         />
       )}
@@ -123,6 +80,7 @@ const styles = StyleSheet.create({
   contentWrapper: { flexDirection: "row", justifyContent: "space-between" },
   titlestyle: { fontWeight: "400" },
   metaTextStyle: { color: "#b9b9b9", fontSize: 14 },
+  iconStyle:{ height: 30, width: 30 }
 });
 
 export default ListItem;

@@ -1,11 +1,12 @@
 import { all } from 'redux-saga/effects';
 import { watchFetchUser } from './userSaga';
-import { watchHandleSetUserWeeklyLimit } from './WeeklyLimitSaga';
+import { watchHandleSetUserWeeklyLimit, watchHandleResetWeeklyLimit } from './WeeklyLimitSaga';
 
 export default function* rootSaga() {
   yield all([
     watchFetchUser(),
-    watchHandleSetUserWeeklyLimit()
+    watchHandleSetUserWeeklyLimit(),
+    watchHandleResetWeeklyLimit()
     // Add more sagas here if needed
   ]);
 }
