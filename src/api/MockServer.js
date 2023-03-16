@@ -10,7 +10,7 @@ let constData = {
     pin: "4453",
     available_balance: 40000,
   },
-  weekly_limit: 40000,
+  weekly_limit: null,
   amount_spent: 34000,
   weeklyLimitEnabled: true,
   denomination:"USD"
@@ -34,6 +34,7 @@ window.server = createServer({
       if (typeof weeklyLimitEnabled === "boolean" && typeof limitValue === "number") {
         constData['weekly_limit'] =  limitValue;
         constData['weeklyLimitEnabled'] =  weeklyLimitEnabled;
+        constData['amount_spent'] = 0;
 
         return new Response(200, {},{data: constData});
       } else {

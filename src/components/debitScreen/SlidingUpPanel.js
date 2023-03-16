@@ -15,19 +15,25 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "./Card";
 import ListItem from "./SlidingPaneList";
 import Bar from "./Bar";
-import { useSelector } from 'react-redux';
-import { selectAmountSpent, selectSpendingLimit, selectDenomination} from "../../redux/selectors/userSelectors";
+import { useSelector } from "react-redux";
+import {
+  selectAmountSpent,
+  selectSpendingLimit,
+  selectDenomination,
+} from "../../redux/selectors/userSelectors";
 
 const { width, height } = Dimensions.get("screen");
 
 const CARD_WIDTH = width - 48; //Ensures that the currency notation and the card's left end align just like the mock up
 const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
-let amountSpent =0, spendingLimit = 0, denomination;
+let amountSpent = null,
+  spendingLimit = null,
+  denomination;
 
 const panelMenu = [
   {
     id: 1,
-    type:"MENU",
+    type: "MENU",
     image: icons.insight,
     title: "Top-up-account",
     meta: "Deposit money to your account to use with card",
@@ -36,7 +42,7 @@ const panelMenu = [
   },
   {
     id: 2,
-    type:"WEEK",
+    type: "WEEK",
     image: icons.transfer,
     title: "Weekly spending limit",
     meta: "you haven't set any spending limit on card",
@@ -45,9 +51,9 @@ const panelMenu = [
   },
   {
     id: 3,
-    type:"MENU",
+    type: "MENU",
     image: icons.freeze,
-    type:"FREEZE_TOGGLE",
+    type: "FREEZE_TOGGLE",
     title: "Freeze card",
     meta: "Your Debit card is currently active",
     isToggleMenu: true,
@@ -55,7 +61,7 @@ const panelMenu = [
   },
   {
     id: 4,
-    type:"MENU",
+    type: "MENU",
     image: icons.newCard,
     title: "Get a new card ",
     meta: "This activates your current debit card",
@@ -64,7 +70,7 @@ const panelMenu = [
   },
   {
     id: 5,
-    type:"MENU",
+    type: "MENU",
     image: icons.deactivate,
     title: "Deactivated cards",
     meta: "This deactivates your current debit card",
@@ -75,7 +81,7 @@ const panelMenu = [
 
 const flatListHeaderComponent = () => (
   <>
-    <View style={{ alignItems: "center" }}>
+    <View style={{ alignItems: "center"}}>
       <View
         style={{
           backgroundColor: "transparent",
@@ -87,24 +93,32 @@ const flatListHeaderComponent = () => (
       </View>
       <Card />
     </View>
-    <View style={{ padding: SIZES.padding, backgroundColor: COLORS.white }}>
-      <View style={styles.spendingLimitWrapper}>
-        <Text style={{ fontSize: 14 }}>Debit card spending limit</Text>
-        <Text style={{ color: COLORS.gray, fontSize: 14 }}>
-          <Text style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}>
-          {`${denomination} ` }  
-            {amountSpent
-              ?.toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-          </Text>
-          | {`${denomination} ` } 
-           {spendingLimit
-            ?.toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Text>
-      </View>
-      <Bar />
-    </View>
+    
+      {spendingLimit?<View style={{ padding: SIZES.padding +10, backgroundColor: COLORS.white,  }}>
+        <View style={styles.spendingLimitWrapper}>
+          
+        
+              <Text style={{ fontSize: 14 }}>Debit card spending limit</Text>
+              <Text style={{ color: COLORS.gray, fontSize: 14 }}>
+                <Text
+                  style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}
+                >
+                  {`${denomination} `}
+                  {amountSpent
+                    ?.toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                </Text>
+                | {`${denomination} `}
+                {spendingLimit
+                  ?.toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Text>
+            
+          
+        </View>
+        <Bar/>
+      </View>: <View style={{height:10, backgroundColor:"white"}}/>}
+  
   </>
 );
 
@@ -116,15 +130,14 @@ const createOneButtonAlert = (title, message) =>
     },
   ]);
 
-const SlidingUpPanel = (props) => {
-  amountSpent = useSelector(selectAmountSpent);;
+const SlidingUpPanel = () => {
+  amountSpent = useSelector(selectAmountSpent);
   spendingLimit = useSelector(selectSpendingLimit);
   denomination = useSelector(selectDenomination);
- 
+
   let cardNumber = "12345678912";
   let userId = 1;
   let isSpendingLimitSet = true;
-
 
   const manageLoadingIndicator = (displayFlag, message) => {
     dispatchEvent(

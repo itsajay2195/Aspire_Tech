@@ -7,7 +7,6 @@ function* handleSetUserWeeklyLimit(postData) {
   try {
     setLoading(true)
     const user = yield call(setWeeklyLimitService,postData);
-    console.warn('respone lim', user)
     yield put(setUserInfo(user));
   } catch (error) {
     yield put(setUserInfoFailure());

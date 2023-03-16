@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { COLORS } from '../../styles/index';
+import { useSelector } from 'react-redux';
+import { selectAmountSpent, selectSpendingLimit } from '../../redux/selectors/userSelectors';
 
 const Bar = ({ progress }) => {
-  // const amountSpent = useSelector(selectAmountSpent) ||100
-  // const weeklyLimit = useSelector(selectSpendingLimit) || 200
-  // const percentage = Math.floor(amountSpent * 100 / weeklyLimit)
+  const amountSpent = useSelector(selectAmountSpent) ||100
+  const weeklyLimit = useSelector(selectSpendingLimit) || 200
+  const percentage = Math.floor(amountSpent * 100 / weeklyLimit)
 
   return (
    
     <View style={[styles.container, { height: 15, width: "100%" }]}>
-    <View style={[styles.filler, { backgroundColor: COLORS.primaryGreen, width: `${80}%` }]} />
+    <View style={[styles.filler, { backgroundColor: COLORS.primaryGreen, width: `${percentage}%` }]} />
   </View>
   );
 };
