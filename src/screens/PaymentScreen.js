@@ -42,6 +42,12 @@ const renderItem = ({ item }) => {
 
     );
   }
+  if(item.type === "heading"){
+    let date = item.value;
+    let today = new Date().toISOString().slice(0, 10);
+    return(<Text style={styles.flatListHeadingText}>{date ===today ? "Today" : date}</Text>
+    )
+  }
 };
 
 const PaymentScreen = () => {
@@ -139,5 +145,6 @@ const styles = StyleSheet.create({
   },
   listItemDescriptionStyle:{ fontSize: 14, fontWeight: "bold" },
   listitemTransactionTextStyle:{ fontWeight: "bold", color: COLORS.gray },
-  listItemDenominationStyle:{fontWeight:"bold"}
+  listItemDenominationStyle:{fontWeight:"bold"},
+  flatListHeadingText:{padding:10,fontWeight:'bold',fontSize:SIZES.h3,color:COLORS.gray}
 });
