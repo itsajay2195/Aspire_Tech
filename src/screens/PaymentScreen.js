@@ -24,29 +24,22 @@ const renderItem = ({ item }) => {
   const{description,transactedAt, color, amount,transactionType} = item
   if (item.type === "item") {
     return (
-      <View style={{marginVertical:10}}>
+  
         <View
-          style={{
-            padding: 20,
-            backgroundColor: COLORS.secondaryGreen,
-            borderRadius: 20,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          style={styles.listItemWrapper}
         >
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 14, fontWeight: "bold" }}>{description}</Text>
-            <Text style={{ fontWeight: "bold", color: COLORS.gray }}>
+          <View>
+            <Text style={styles.listItemDescriptionStyle}>{description}</Text>
+            <Text style={styles.listitemTransactionTextStyle}>
               {transactedAt}
             </Text>
           </View>
 
           <View>
-            <Text  style={{fontWeight:"bold", color:color}}>{transactionType === 'dr' ? "-" : null} {amount} {denomination}</Text>
+            <Text  style={[styles.listItemDenominationStyle,{color}]}>{transactionType === 'dr' ? "-" : null} {amount} {denomination}</Text>
           </View>
         </View>
-      </View>
+
     );
   }
 };
@@ -77,23 +70,17 @@ const PaymentScreen = () => {
       </View>
 
       <View
-        style={{
-          flex: 1,
-          backgroundColor: COLORS.primaryGreen,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          padding: 20,
-        }}
+        style={styles.contentContainer}
       >
         <View >
-          <Text style={{padding:10,fontWeight:'bold', fontSize:SIZES.h2}}>Transactions</Text>
+          <Text style={styles.transactions}>Transactions</Text>
         </View>
         {payments?<FlatList
           data={DATA}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item,index) => `{${item.type} ${index}`}
           renderItem={renderItem}
-        />:<View style={{flex:1, justifyContent:'center',alignItems:'center'}}><ActivityIndicator color={COLORS.primaryBlue} size={"large"}/></View>}
+        />:<View style={styles.activityIndicatorContainerStyle}><ActivityIndicator color={COLORS.primaryBlue} size={"large"}/></View>}
       </View>
     </View>
   );
@@ -132,4 +119,25 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
+  activityIndicatorContainerStyle:{flex:1, justifyContent:'center',alignItems:'center'},
+  transactions:{padding:10,fontWeight:'bold', fontSize:SIZES.h2},
+  contentContainer:{
+    flex: 1,
+    backgroundColor: COLORS.primaryGreen,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+  },
+  listItemWrapper:{
+    marginVertical:10,
+    padding: 20,
+    backgroundColor: COLORS.secondaryGreen,
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  listItemDescriptionStyle:{ fontSize: 14, fontWeight: "bold" },
+  listitemTransactionTextStyle:{ fontWeight: "bold", color: COLORS.gray },
+  listItemDenominationStyle:{fontWeight:"bold"}
 });
