@@ -3,8 +3,7 @@ import {
   SET_USER_INFO,
   SET_WEEKLY_SPENDING_LIMIT,
   RESET_WEEKLY_LIMIT,
-  SET_MENU_INFO,
-  SET_EXPENSE_INFO,
+  SET_USER_PAYMENTS,
   SET_AMOUNT_SPENT,
   SET_WEEKLY_LIMIT_TOGGLED,
   SET_USER_INFO_FAILURE,
@@ -37,15 +36,12 @@ export const setWeeklySpendingLimitAction = (payload) => {
   payload,
 }};
 
-export const setMenuInfo = (index, value) => ({
-  type: SET_MENU_INFO,
-  payload: { index, value },
-});
-
-export const setExpenseInfo = (payload) => ({
-  type: SET_EXPENSE_INFO,
+export const setUserPaymentInfoAction = (payload) => {
+  return{
+  type: SET_USER_PAYMENTS,
   payload,
-});
+}};
+
 
 export const setAmountSpent = (payload) => ({
   type: SET_AMOUNT_SPENT,

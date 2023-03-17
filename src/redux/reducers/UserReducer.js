@@ -7,7 +7,7 @@ import {
   SET_AMOUNT_SPENT,
   SET_WEEKLY_LIMIT_TOGGLED,
   SET_USER_INFO_FAILURE,
-  RESET_WEEKLY_LIMIT
+  SET_USER_PAYMENTS
 } from "../actions/ActionConstants";
 
 const initialState = {
@@ -18,6 +18,7 @@ const initialState = {
   amountSpent: null,
   weeklyLimitToggled: null,
   denomination:null,
+  payments:null
 };
 
 const userReducer = (state = initialState, action) => {
@@ -73,6 +74,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         weeklyLimitToggled: action.payload,
       };
+    case SET_USER_PAYMENTS:
+      return{
+        ...state,
+        payments:action.payload
+      }
     default:
       return state;
   }

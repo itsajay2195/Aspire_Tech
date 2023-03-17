@@ -9,9 +9,10 @@ import { SvgLogo, SvgAccount, SvgCredit, SvgCard , SvgPayment} from "./assets/sv
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { navigationRef } from "./utils/NavigationService";
-import { PROFILE_SCREEN, HOME_SCREEN,TABS,PAYMENTS_SCREEN,CREDIT_SCREEN,DEBIT_CARD_SCREEN, WEEKLY_SPENDING_LIMIT_SCREEN, SPLASH_SCREEN, MAIN_TABS,DEBIT_CARD_SCREEN_BOTTOM_NAV} from "./constants/ScreenNames";
+import { PROFILE_SCREEN, HOME_SCREEN,PAYMENTS_SCREEN,CREDIT_SCREEN,DEBIT_CARD_SCREEN, WEEKLY_SPENDING_LIMIT_SCREEN, SPLASH_SCREEN, MAIN_TABS,DEBIT_CARD_SCREEN_BOTTOM_NAV} from "./constants/ScreenNames";
 import StaticScreen from "./screens/StaticScreen";
 import SplashScreen from "./screens/SplashScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 
 export default function RootNavigation() {
   const Stack = createNativeStackNavigator();
@@ -68,7 +69,7 @@ const MainTabs = () => {
       />
       <Tab.Screen
         name={PAYMENTS_SCREEN}
-        component={StaticScreen}
+        component={PaymentScreen}
         options={{
           tabBarIcon: ({ color }) => <SvgPayment color={color} />,
         }}
