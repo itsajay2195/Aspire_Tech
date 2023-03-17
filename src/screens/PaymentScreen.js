@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, StatusBar, FlatList } from "react-native";
+import { StyleSheet, Text, View, StatusBar, FlatList, ActivityIndicator } from "react-native";
 import React, { useEffect } from "react";
 import { COLORS, PLATFORM, SIZES } from "../styles";
 import Header from "../components/common/Header";
 import { SvgAccount } from "../assets/svg/svg";
 import { useDispatch,useSelector } from "react-redux";
 import { selectUserInfo, selectUserPayments } from "../redux/selectors/userSelectors";
-import { setUserPaymentInfoAction } from "../redux/actions/UserActions";
+import { setUserPaymentInfoRequest } from "../redux/actions/UserActions";
 
 const DATA = [
   { type: "heading", value: "2023-03-17" },
@@ -56,13 +56,13 @@ const PaymentScreen = () => {
   const { card_info: { card_holder },denomination:units } = userInfo;
   const payments = useSelector(selectUserPayments);
   const dispatch = useDispatch();
-  console.warn(payments)
-
   denomination =units;
 
-  // useEffect(()=>{
-  //   dispatch(setUserPaymentInfoAction())
-  // },[])
+  useEffect(()=>{
+    setTimeout(()=>{
+      dispatch(setUserPaymentInfoRequest())
+    },2000)
+  },[dispatch])
   return (
     <View style={styles.container}>
       <Header showBack={true} />
@@ -72,7 +72,7 @@ const PaymentScreen = () => {
         </View>
 
         <View>
-          <Text numberOfLines={1} style={styles.userNameTextStyle}> Hello, {card_holder}{"\n"}</Text>
+          <Text numberOfLines={1} style={styles.userNameTextStyle}> Hello, {card_holder? card_holder: ""}{"\n"}</Text>
         </View>
       </View>
 
@@ -88,12 +88,12 @@ const PaymentScreen = () => {
         <View >
           <Text style={{padding:10,fontWeight:'bold', fontSize:SIZES.h2}}>Transactions</Text>
         </View>
-        <FlatList
+        {payments?<FlatList
           data={DATA}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item,index) => `{${item.type} ${index}`}
           renderItem={renderItem}
-        />
+        />:<View style={{flex:1, justifyContent:'center',alignItems:'center'}}><ActivityIndicator color={COLORS.primaryBlue} size={"large"}/></View>}
       </View>
     </View>
   );

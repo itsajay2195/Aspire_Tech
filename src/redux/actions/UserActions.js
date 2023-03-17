@@ -8,6 +8,7 @@ import {
   SET_WEEKLY_LIMIT_TOGGLED,
   SET_USER_INFO_FAILURE,
   SET_USER_INFO_REQUEST,
+  SET_USER_PAYMENTS_REQUEST
 } from "./ActionConstants";
 
 export const setLoading = (payload) => ({
@@ -33,6 +34,12 @@ export const setUserInfoFailure = () => ({
 export const setWeeklySpendingLimitAction = (payload) => {
   return{
   type: SET_WEEKLY_SPENDING_LIMIT,
+  payload,
+}};
+
+export const setUserPaymentInfoRequest = (payload) => {
+  return{
+  type: SET_USER_PAYMENTS_REQUEST,
   payload,
 }};
 

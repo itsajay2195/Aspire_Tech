@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { fetchUserPayments } from '../../services/Payments';
-import {SET_USER_PAYMENTS} from '../actions/ActionConstants'
+import {SET_USER_PAYMENTS_REQUEST} from '../actions/ActionConstants'
 import { setLoading, setUserPaymentInfoAction, setUserInfoFailure  } from '../../redux/actions/UserActions';
 
 function* handleFetchUserPayments() {
@@ -14,5 +14,5 @@ function* handleFetchUserPayments() {
 }
 
 export function* watchFetchUserPayments() {
-  yield takeLatest(SET_USER_PAYMENTS, handleFetchUserPayments);
+  yield takeLatest(SET_USER_PAYMENTS_REQUEST, handleFetchUserPayments);
 }
