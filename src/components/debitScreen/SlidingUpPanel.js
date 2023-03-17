@@ -81,27 +81,23 @@ const panelMenu = [
 
 const flatListHeaderComponent = () => (
   <>
-    <View style={{ alignItems: "center"}}>
+    <View style={styles.flatListHeaderComponentTopItemStyle}>
       <View
-        style={{
-          backgroundColor: "transparent",
-          flex: 1,
-          height: height * 0.35,
-        }}
+        style={styles.flatListHeaderItemTransparentView}
       >
         {/* A view that stays transparent */}
       </View>
       <Card />
     </View>
     
-      {spendingLimit?<View style={{ padding: SIZES.padding +10, backgroundColor: COLORS.white,  }}>
+      {spendingLimit?<View style={styles.spendingLimitContetnWrapper}>
         <View style={styles.spendingLimitWrapper}>
           
         
-              <Text style={{ fontSize: 14 }}>Debit card spending limit</Text>
-              <Text style={{ color: COLORS.gray, fontSize: 14 }}>
+              <Text style={styles.spendingLimitTextStyle}>Debit card spending limit</Text>
+              <Text style={styles.limitText}>
                 <Text
-                  style={{ color: COLORS.primaryGreen, fontWeight: "bold" }}
+                  style={styles.amountSpentText}
                 >
                   {`${denomination} `}
                   {amountSpent
@@ -117,103 +113,18 @@ const flatListHeaderComponent = () => (
           
         </View>
         <Bar/>
-      </View>: <View style={{height:10, backgroundColor:"white"}}/>}
+      </View>: <View style={styles.flatListHeadrbottomStyle}/>}
   
   </>
 );
 
-const createOneButtonAlert = (title, message) =>
-  Alert.alert(title, message, [
-    {
-      text: "OK",
-      onPress: () => {},
-    },
-  ]);
 
 const SlidingUpPanel = () => {
   amountSpent = useSelector(selectAmountSpent);
   spendingLimit = useSelector(selectSpendingLimit);
   denomination = useSelector(selectDenomination);
-
-  let cardNumber = "12345678912";
-  let userId = 1;
   let isSpendingLimitSet = true;
 
-  const manageLoadingIndicator = (displayFlag, message) => {
-    dispatchEvent(
-      setIsLoadingIndicatorDisplayed({
-        isLoadingIndicatorDisplayed: displayFlag,
-      })
-    );
-    dispatchEvent(
-      setLoadingIndicatorText({
-        loadingIndicatorText: message,
-      })
-    );
-  };
-
-  const removeSpendingLimitApi = async () => {
-    const params = {
-      userId: userId, //User ID for which Spending limit is being set
-      cardNumber: cardNumber, //Card Number for which the Spending Limit is being set
-    };
-
-    //MARK: this line is used to contact one of the two mocked dumb APIs that return either success(90%) or failure(10%) in changing the limit
-    let randomizedSucessfulApi =
-      Math.floor(Math.random() * 100) < 10
-        ? "/removeSpendingLimitf"
-        : "/removeSpendingLimits";
-    console.log("API CALL : " + randomizedSucessfulApi);
-    console.log(params);
-
-    const response = debitCardDetailsAPI
-      .post(randomizedSucessfulApi, params)
-      .then((response) => {
-        manageLoadingIndicator(false, "");
-        // Response is designed to be in the form of
-        // For: setSpendingLimitf -> {success: "false", reason: "You are not allowed to remove spending limit. Contact your administrator", limitExhausted: -1}    //The setting/removal failed at backend due to a restriction by card manager
-        // For: setSpendingLimits -> {success: "true", reason: "", limitExhausted: <numericalValue>} //Limit set successfully
-        // setIndicatorDisplayed(false);
-        if (response.status != 200) {
-          return createOneButtonAlert(
-            "Error",
-            "Error Encountered in Removing Spending Limit"
-          );
-        } else {
-          console.log(response.data);
-          if (response.data.success != null) {
-            if (response.data.success == "true") {
-              dispatchEvent(
-                setWeeklySpendingLimit({
-                  weeklySpendingLimit: -1,
-                })
-              );
-              dispatchEvent(
-                setWeeklySpendingLimitExhausted({
-                  weeklySpendingLimitExhausted: -1,
-                })
-              );
-            } else if (
-              response.data.success == "false" &&
-              response.data.reason != null &&
-              response.data.reason != ""
-            ) {
-              return createOneButtonAlert("Error", response.data.reason);
-            }
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(response);
-        console.log(error);
-        manageLoadingIndicator(false, "");
-        // setIndicatorDisplayed(false);
-        return createOneButtonAlert(
-          "Error",
-          "Error Encountered in Removing Spending Limit"
-        );
-      });
-  };
 
   const totalMenuItemHeight = isSpendingLimitSet
     ? CARD_HEIGHT + 32 - 90 + 65 + 63 * panelMenu.length + 243
@@ -306,4 +217,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     marginTop: -1,
   },
+  flatListHeaderComponentTopItemStyle:{ alignItems: "center"},
+  flatListHeaderItemTransparentView:{
+    backgroundColor: "transparent",
+    flex: 1,
+    height: height * 0.35,
+  },
+  spendingLimitContetnWrapper:{ padding: SIZES.padding +10, backgroundColor: COLORS.white,  },
+  spendingLimitTextStyle:{ fontSize: 14 },
+  limitText:{ color: COLORS.gray, fontSize: 14 },
+  amountSpentText:{ color: COLORS.primaryGreen, fontWeight: "bold" },
+  flatListHeadrbottomStyle:{height:10, backgroundColor:"white"}
 });

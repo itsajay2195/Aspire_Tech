@@ -96,12 +96,8 @@ const Card = React.memo(
               <Text style={styles.userName}>{"Ajaykumar"}</Text>
             </View>
             <View style={styles.cardNumberContainer}>
-              <View style={{ flex: 1 }}>
+              <View style={styles.cardComponentWrapper}>
                 <CarNumberComponent />
-                {/* <CardNumberDisplay
-                  cardDisplayFlag={true}
-                  cardNumber={"123456778987"}
-                /> */}
               </View>
 
               <View style={styles.validThruCvvContainer}>
@@ -236,4 +232,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: COLORS.white,
   },
+  cardComponentWrapper:{ flex: 1 }
 });
