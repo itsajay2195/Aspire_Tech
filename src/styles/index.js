@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 import theme, { COLORS, SIZES, FONTS } from "./theme";
-import icons from "../assets/icons";
+import icons from "../assets/icons/icons";
 
 const PLATFORM = Platform.OS
 export {

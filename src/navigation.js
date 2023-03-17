@@ -9,8 +9,9 @@ import { SvgLogo, SvgAccount, SvgCredit, SvgCard , SvgPayment} from "./assets/sv
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { navigationRef } from "./utils/NavigationService";
-import { PROFILE_SCREEN, HOME_SCREEN,STATIC_SCREEN,PAYMENTS_SCREEN,CREDIT_SCREEN,DEBIT_CARD_SCREEN, WEEKLY_SPENDING_LIMIT_SCREEN } from "./constants/ScreenNames";
+import { PROFILE_SCREEN, HOME_SCREEN,TABS,PAYMENTS_SCREEN,CREDIT_SCREEN,DEBIT_CARD_SCREEN, WEEKLY_SPENDING_LIMIT_SCREEN, SPLASH_SCREEN } from "./constants/ScreenNames";
 import StaticScreen from "./screens/StaticScreen";
+import SplashScreen from "./screens/SplashScreen";
 
 export default function RootNavigation() {
   const Tab = createBottomTabNavigator();
@@ -30,7 +31,7 @@ export default function RootNavigation() {
         tabBar={(props) => <MyTabBar {...props} />}
       >
         <Tab.Navigator
-          initialRouteName={DEBIT_CARD_SCREEN}
+          initialRouteName={TABS}
           screenOptions={screenOptions}
         >
           <Tab.Screen
@@ -41,7 +42,7 @@ export default function RootNavigation() {
             }}
           />
           <Tab.Screen
-            name={DEBIT_CARD_SCREEN}
+            name={TABS}
             component={DebitScreenNavigator}
             options={{
               tabBarIcon: ({ color }) => <SvgCard color={color} />,
@@ -84,9 +85,10 @@ const DebitScreenNavigator = () => {
     tabBarInactiveTintColor: COLORS.lightGray,
   };
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Navigator initialRouteName={SPLASH_SCREEN} screenOptions={screenOptions}>
       <Stack.Screen name={DEBIT_CARD_SCREEN} component={DebitScreen} />
       <Stack.Screen name={WEEKLY_SPENDING_LIMIT_SCREEN} component={WeeklyLimitSceen} />
+      <Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} />
     </Stack.Navigator>
   );
 };

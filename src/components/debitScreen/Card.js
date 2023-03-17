@@ -87,7 +87,7 @@ const Card = React.memo(
           <View style={styles.topLogoContainer}>
             <Image
               style={styles.topLogo}
-              source={require("../../assets/AspireLogo.png")}
+              source={require("../../assets/icons/AspireLogo.png")}
               resizeMode="contain"
             />
           </View>
@@ -115,7 +115,7 @@ const Card = React.memo(
           <View style={styles.bottomLogoContainer}>
             <Image
               style={styles.bottomLogo}
-              source={require("../../assets/VisaLogo.png")}
+              source={require("../../assets/icons/VisaLogo.png")}
               resizeMode="contain"
             />
           </View>

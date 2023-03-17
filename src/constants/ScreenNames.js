@@ -5,3 +5,5 @@ export const STATIC_SCREEN = 'StaticScreen';
 export const HOME_SCREEN= 'HomeScreen';
 export const CREDIT_SCREEN= 'CreditScreen';
 export const PAYMENTS_SCREEN = 'PaymentScreen';
+export const TABS = 'Tabs';
+export const SPLASH_SCREEN = 'SplashScreen';

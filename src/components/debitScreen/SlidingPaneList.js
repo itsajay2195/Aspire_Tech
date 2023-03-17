@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: SIZES.padding,
-    paddingVertical: SIZES.padding / 2,
+    paddingVertical: SIZES.padding / 1.5,
     backgroundColor: COLORS.white,
   },
   menuInfoWrapper: {
