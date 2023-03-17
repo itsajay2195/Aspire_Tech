@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   activityIndicatorContainerStyle:{flex:1, justifyContent:'center',alignItems:'center'},
-  transactions:{padding:10,fontWeight:'bold', fontSize:SIZES.h2},
+  transactions:{padding:8,fontWeight:'bold', fontSize:SIZES.h2},
   contentContainer:{
     flex: 1,
     backgroundColor: COLORS.primaryGreen,

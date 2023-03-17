@@ -11,7 +11,7 @@ const Bar = ({ progress }) => {
 
   return (
    
-    <View style={[styles.container, { height: 15, width: "100%" }]}>
+    <View style={styles.container}>
     <View style={[styles.filler, { backgroundColor: COLORS.primaryGreen, width: `${percentage}%` }]} />
   </View>
   );
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.secondaryGreen,
     borderRadius: 5,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: 15, width: "100%" 
   },
   filler: {
     height: '100%',
