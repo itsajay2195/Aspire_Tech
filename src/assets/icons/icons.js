@@ -6,7 +6,7 @@ const limit = require("../icons/Limit.png")
 const newCard = require("../icons/Newcard.png")
 const transfer = require("../icons/Transfer.png")
 const home = require("../icons/Home.png")
-const homeLarge = require("../icons/HomeLarge.png")
+const splashScreenIcon = require("../icons/HomeLarge.png")
 export default {
     deactivate,
     freeze,
@@ -15,5 +15,5 @@ export default {
     newCard,
     transfer,
     home,
-    homeLarge
+    splashScreenIcon
 }

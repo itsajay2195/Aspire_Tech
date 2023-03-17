@@ -1,5 +1,6 @@
 export const PROFILE_SCREEN = 'ProfileScreen';
 export const DEBIT_CARD_SCREEN = 'DebitCardScreen';
+export const DEBIT_CARD_SCREEN_BOTTOM_NAV = 'DebitCardScreenBottomNav';
 export const WEEKLY_SPENDING_LIMIT_SCREEN = 'WeeklySpendingLimitScreen';
 export const STATIC_SCREEN = 'StaticScreen';
 export const HOME_SCREEN= 'HomeScreen';
@@ -7,3 +8,4 @@ export const CREDIT_SCREEN= 'CreditScreen';
 export const PAYMENTS_SCREEN = 'PaymentScreen';
 export const TABS = 'Tabs';
 export const SPLASH_SCREEN = 'SplashScreen';
+export const MAIN_TABS = 'MainTabs';

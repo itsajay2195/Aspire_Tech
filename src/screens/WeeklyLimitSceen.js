@@ -16,6 +16,7 @@ const WeeklyLimit = () => {
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const error = useSelector(selectError);
+
   const saveSpendingLimit = () => {
 
     let num = parseFloat(limitFieldValue.replace(',', ''))//  this is basically done to check if the user inputted number is less than 0 or not
@@ -38,7 +39,7 @@ const WeeklyLimit = () => {
  
     let postRequestData={limitValue:num,weeklyLimitEnabled:true}
     dispatch(setWeeklySpendingLimitAction(postRequestData))
-   
+    onLimitFieldValueChange("")//this helps to disable the Save btn
     // navigation.navigate('Debit Card')
   }
 

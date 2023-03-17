@@ -1,21 +1,20 @@
 import { Image, StyleSheet, View } from 'react-native'
 import React,{useEffect} from 'react'
 import { COLORS, icons } from '../styles'
-
-import { DEBIT_CARD_SCREEN } from '../constants/ScreenNames'
+import { MAIN_TABS } from '../constants/ScreenNames'
 
 const SplashScreen = ({navigation}) => {
     useEffect(()=>{
         setTimeout(()=>{
             navigation.reset({
               index: 0,
-              routes: [{ name: DEBIT_CARD_SCREEN }],
+              routes: [{ name: MAIN_TABS }],
             });
-          },3000)
+          },1500)
     },[])
   return (
     <View style={styles.container}>
-          <Image style={{ height:80,width:80}}  resizeMode="cover" source={require('../assets/icons/HomeLarge.png')}/>
+          <Image style={{ height:80,width:80}}  resizeMode="cover" source={icons.splashScreenIcon}/>
     </View>
   )
 }
