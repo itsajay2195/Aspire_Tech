@@ -50,16 +50,6 @@ export const setUserPaymentInfoAction = (payload) => {
 }};
 
 
-export const setAmountSpent = (payload) => ({
-  type: SET_AMOUNT_SPENT,
-  payload,
-});
-
-export const setWeeklyLimitToggled = (payload) => ({
-  type: SET_WEEKLY_LIMIT_TOGGLED,
-  payload,
-});
-
 export const resetWeeklyLimit = () => ({
   type: RESET_WEEKLY_LIMIT,
 });
