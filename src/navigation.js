@@ -51,7 +51,7 @@ const MainTabs = () => {
   };
 
   return (
-    <Tab.Navigator initialRouteName={DEBIT_CARD_SCREEN_BOTTOM_NAV} screenOptions={screenOptions}>
+    <Tab.Navigator initialRouteName={DEBIT_CARD_SCREEN} screenOptions={screenOptions}>
       <Tab.Screen
         name={HOME_SCREEN}
         component={StaticScreen}
@@ -60,7 +60,7 @@ const MainTabs = () => {
         }}
       />
       <Tab.Screen
-        name={DEBIT_CARD_SCREEN_BOTTOM_NAV}
+        name={DEBIT_CARD_SCREEN}
         component={DebitScreenNavigator}
         options={{
           tabBarIcon: ({ color }) => <SvgCard color={color} />,
@@ -101,8 +101,8 @@ const DebitScreenNavigator = () => {
     tabBarInactiveTintColor: COLORS.lightGray,
   };
   return (
-    <Stack.Navigator initialRouteName={DEBIT_CARD_SCREEN} screenOptions={screenOptions}>
-      <Stack.Screen name={DEBIT_CARD_SCREEN} component={DebitScreen} />
+    <Stack.Navigator initialRouteName={DEBIT_CARD_SCREEN_BOTTOM_NAV} screenOptions={screenOptions}>
+      <Stack.Screen name={DEBIT_CARD_SCREEN_BOTTOM_NAV} component={DebitScreen} />
       <Stack.Screen name={WEEKLY_SPENDING_LIMIT_SCREEN} component={WeeklyLimitSceen} />
     </Stack.Navigator>
   );
